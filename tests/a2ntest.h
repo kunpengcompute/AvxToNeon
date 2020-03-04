@@ -280,6 +280,32 @@ typedef enum {
     UT_MM512_INSERTI32X8,
     UT_MM512_INSERTI64X4,
     UT_MM512_PERMUTEXVAR_EPI32,
+	UT_MM_LOAD_EPI32,
+	UT_MM_LOAD_EPI64,
+	UT_MM_LOAD_SI128,
+	UT_MM_LOAD_PD,
+	UT_MM_LOAD_PS,
+	UT_MM256_LOAD_EPI32,
+	UT_MM256_LOAD_EPI64,
+	UT_MM256_LOAD_PD,
+	UT_MM256_LOAD_PS,
+	UT_MM512_LOAD_EPI32,
+	UT_MM512_LOAD_EPI64,
+	UT_MM512_LOAD_PD,
+	UT_MM512_LOAD_PS,
+	UT_MM_STORE_EPI32,
+	UT_MM_STORE_EPI64,
+	UT_MM_STORE_SI128,
+	UT_MM_STORE_PD,
+	UT_MM_STORE_PS,
+	UT_MM256_STORE_EPI32,
+	UT_MM256_STORE_EPI64,
+	UT_MM256_STORE_PD,
+	UT_MM256_STORE_PS,
+	UT_MM512_STORE_EPI32,
+	UT_MM512_STORE_EPI64,
+	UT_MM512_STORE_PD,
+	UT_MM512_STORE_PS,
     UT_MM256_SET_EPI32
 } InstructionTest;
 
@@ -555,4 +581,30 @@ int test_mm256_cmp_ps();
 int test_mm512_cmp_pd_mask();
 int test_mm512_cmp_ps_mask();
 
+int test_mm_load_epi32();
+int test_mm_load_epi64();
+int test_mm_load_si128();
+int test_mm_load_pd();
+int test_mm_load_ps();
+int test_mm256_load_epi32();
+int test_mm256_load_epi64();
+int test_mm256_load_pd();
+int test_mm256_load_ps();
+int test_mm512_load_epi32();
+int test_mm512_load_epi64();
+int test_mm512_load_pd();
+int test_mm512_load_ps();
+int test_mm_store_epi32();
+int test_mm_store_epi64();
+int test_mm_store_si128();
+int test_mm_store_pd();
+int test_mm_store_ps();
+int test_mm256_store_epi32();
+int test_mm256_store_epi64();
+int test_mm256_store_pd();
+int test_mm256_store_ps();
+int test_mm512_store_epi32();
+int test_mm512_store_epi64();
+int test_mm512_store_pd();
+int test_mm512_store_ps();
 #endif

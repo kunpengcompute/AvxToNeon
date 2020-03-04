@@ -833,3 +833,63 @@ FORCE_INLINE __m128i _mm_insert_epi32 (__m128i a, int i, const int imm8)
     a.vect_s32 = vsetq_lane_s32(i, a.vect_s32, imm8);
     return a;
 }
+
+FORCE_INLINE __m128i _mm_load_epi32 (void const* mem_addr)
+{
+    __m128i res;
+    res.vect_s32 = vld1q_s32((const int32_t *)mem_addr);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_load_epi64 (void const* mem_addr)
+{
+    __m128i res;
+    res.vect_s64 = vld1q_s64((const int64_t *)mem_addr);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_load_si128 (__m128i const* mem_addr)
+{
+    __m128i res;
+    res.vect_s32 = vld1q_s32((const int32_t *)mem_addr);
+    return res;
+}
+
+FORCE_INLINE __m128d _mm_load_pd (double const* mem_addr)
+{
+	__m128d res;
+    res = vld1q_f64((const double *)mem_addr);
+    return res;
+}
+
+FORCE_INLINE __m128 _mm_load_ps (float const* mem_addr)
+{
+	__m128 res;
+    res = vld1q_f32((const float *)mem_addr);
+    return res;
+}
+
+FORCE_INLINE void _mm_store_epi32 (void* mem_addr, __m128i a)
+{
+	vst1q_s32((int32_t *)mem_addr, a.vect_s32);
+}
+
+FORCE_INLINE void _mm_store_epi64 (void* mem_addr, __m128i a)
+{
+	vst1q_s64((int64_t *)mem_addr, a.vect_s64);
+}
+
+FORCE_INLINE void _mm_store_si128 (__m128i* mem_addr, __m128i a)
+{
+	vst1q_s32((int32_t *)mem_addr, a.vect_s32);
+}
+
+FORCE_INLINE void _mm_store_pd (double* mem_addr, __m128d a)
+{
+	vst1q_f64(mem_addr, a);
+}
+
+FORCE_INLINE void _mm_store_ps (float* mem_addr, __m128 a)
+{
+	vst1q_f32(mem_addr, a);
+}

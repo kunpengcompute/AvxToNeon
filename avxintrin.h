@@ -2156,3 +2156,59 @@ FORCE_INLINE __m256 _mm256_cmp_ps(__m256 a, __m256 b, const int imm8)
     dst.vect_f32[1] = vreinterpretq_f32_u32(g_FunListCmp256Ps[imm8].cmpFun(a.vect_f32[1], b.vect_f32[1]));
     return dst;
 }
+
+FORCE_INLINE __m256i _mm256_load_epi32 (void const* mem_addr)
+{
+    __m256i res;
+	res.vect_s32[0] = vld1q_s32((const int32_t *)mem_addr);
+	res.vect_s32[1] = vld1q_s32((const int32_t *)mem_addr + 4);
+	return res;
+}
+
+FORCE_INLINE __m256i _mm256_load_epi64 (void const* mem_addr)
+{
+	__m256i res;
+	res.vect_s64[0] = vld1q_s64((const int64_t *)mem_addr);
+	res.vect_s64[1] = vld1q_s64((const int64_t *)mem_addr + 2);
+	return res;
+}
+
+FORCE_INLINE __m256d _mm256_load_pd (double const * mem_addr)
+{
+	__m256d res;
+	res.vect_f64[0] = vld1q_f64((const double *)mem_addr);
+	res.vect_f64[1] = vld1q_f64((const double *)mem_addr + 2);
+	return res;
+}
+
+FORCE_INLINE __m256 _mm256_load_ps (float const * mem_addr)
+{
+	__m256 res;
+	res.vect_f32[0] = vld1q_f32((const float *)mem_addr);
+	res.vect_f32[1] = vld1q_f32((const float *)mem_addr + 4);
+	return res;
+}
+
+FORCE_INLINE void _mm256_store_epi32 (void* mem_addr, __m256i a)
+{
+	vst1q_s32((int32_t *)mem_addr, a.vect_s32[0]);
+	vst1q_s32((int32_t *)mem_addr + 4, a.vect_s32[1]);
+}
+
+FORCE_INLINE void _mm256_store_epi64 (void* mem_addr, __m256i a)
+{
+	vst1q_s64((int64_t *)mem_addr, a.vect_s64[0]);
+	vst1q_s64((int64_t *)mem_addr + 2, a.vect_s64[1]);
+}
+
+FORCE_INLINE void _mm256_store_pd (double * mem_addr, __m256d a)
+{
+	vst1q_f64(mem_addr, a.vect_f64[0]);
+	vst1q_f64(mem_addr + 2, a.vect_f64[1]);
+}
+
+FORCE_INLINE void _mm256_store_ps (float * mem_addr, __m256 a)
+{
+	vst1q_f32(mem_addr, a.vect_f32[0]);
+	vst1q_f32(mem_addr + 4, a.vect_f32[1]);
+}

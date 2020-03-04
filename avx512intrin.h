@@ -1832,3 +1832,75 @@ FORCE_INLINE __m512i _mm512_inserti64x4 (__m512i a, __m256i b, int imm8)
     res.vect_s64[3] = vbslq_s64(vmask, a.vect_s64[3], b.vect_s64[1]);
     return res;
 }
+
+FORCE_INLINE __m512i _mm512_load_epi32 (void const* mem_addr)
+{
+	__m512i res;
+	res.vect_s32[0] = vld1q_s32((const int32_t *)mem_addr);
+	res.vect_s32[1] = vld1q_s32((const int32_t *)mem_addr + 4);
+	res.vect_s32[2] = vld1q_s32((const int32_t *)mem_addr + 8);
+	res.vect_s32[3] = vld1q_s32((const int32_t *)mem_addr + 12);
+	return res;
+}
+
+FORCE_INLINE __m512i _mm512_load_epi64 (void const* mem_addr)
+{
+	__m512i res;
+	res.vect_s64[0] = vld1q_s64((const int64_t *)mem_addr);
+	res.vect_s64[1] = vld1q_s64((const int64_t *)mem_addr + 2);
+	res.vect_s64[2] = vld1q_s64((const int64_t *)mem_addr + 4);
+	res.vect_s64[3] = vld1q_s64((const int64_t *)mem_addr + 6);
+	return res;
+}
+
+FORCE_INLINE __m512d _mm512_load_pd (void const* mem_addr)
+{
+	__m512d res;
+	res.vect_f64[0] = vld1q_f64((const double *)mem_addr);
+	res.vect_f64[1] = vld1q_f64((const double *)mem_addr + 2);
+	res.vect_f64[2] = vld1q_f64((const double *)mem_addr + 4);
+	res.vect_f64[3] = vld1q_f64((const double *)mem_addr + 6);
+	return res;
+}
+
+FORCE_INLINE __m512 _mm512_load_ps (void const* mem_addr)
+{
+	__m512 res;
+	res.vect_f32[0] = vld1q_f32((const float *)mem_addr);
+	res.vect_f32[1] = vld1q_f32((const float *)mem_addr + 4);
+	res.vect_f32[2] = vld1q_f32((const float *)mem_addr + 8);
+	res.vect_f32[3] = vld1q_f32((const float *)mem_addr + 12);
+	return res;
+}
+
+FORCE_INLINE void _mm512_store_epi32 (void* mem_addr, __m512i a)
+{
+	vst1q_s32((int32_t *)mem_addr, a.vect_s32[0]);
+	vst1q_s32((int32_t *)mem_addr + 4, a.vect_s32[1]);
+	vst1q_s32((int32_t *)mem_addr + 8, a.vect_s32[2]);
+	vst1q_s32((int32_t *)mem_addr + 12, a.vect_s32[3]);
+}
+
+FORCE_INLINE void _mm512_store_epi64 (void* mem_addr, __m512i a)
+{
+	vst1q_s64((int64_t *)mem_addr, a.vect_s64[0]);
+	vst1q_s64((int64_t *)mem_addr + 2, a.vect_s64[1]);
+	vst1q_s64((int64_t *)mem_addr + 4, a.vect_s64[2]);
+	vst1q_s64((int64_t *)mem_addr + 6, a.vect_s64[3]);
+}
+
+FORCE_INLINE void _mm512_store_pd (double * mem_addr, __m512d a)
+{
+	vst1q_f64(mem_addr, a.vect_f64[0]);
+	vst1q_f64(mem_addr + 2, a.vect_f64[1]);
+	vst1q_f64(mem_addr + 4, a.vect_f64[2]);
+	vst1q_f64(mem_addr + 6, a.vect_f64[3]);
+}
+
+FORCE_INLINE void _mm512_store_ps (float * mem_addr, __m512 a)
+{
+	vst1q_f32(mem_addr, a.vect_f32[0]);
+	vst1q_f32(mem_addr + 4, a.vect_f32[1]);
+	vst1q_f32(mem_addr + 8, a.vect_f32[2]);
+	vst1q_f32(mem_addr + 12, a.vect_f32[3]);
+}
