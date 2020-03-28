@@ -1130,110 +1130,110 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM512_CMP_PS_MASK";
             *flag = test_mm512_cmp_ps_mask();
             break;
-		case UT_MM_LOAD_EPI32:
-			ret = "MM_LOAD_EPI32";
-			*flag = test_mm_load_epi32();
-			break;
-		case UT_MM_LOAD_EPI64:
-			ret = "MM_LOAD_EPI64";
-			*flag = test_mm_load_epi64();
-			break;
-		case UT_MM_LOAD_SI128:
-			ret = "MM_LOAD_SI128";
-			*flag = test_mm_load_si128();
-			break;
-		case UT_MM_LOAD_PD:
-			ret = "MM_LOAD_PD";
-			*flag = test_mm_load_pd();
-			break;
-		case UT_MM_LOAD_PS:
-			ret = "MM_LOAD_PS";
-			*flag = test_mm_load_ps();
-			break;
-		case UT_MM256_LOAD_EPI32:
-			ret = "MM256_LOAD_EPI32";
-			*flag = test_mm256_load_epi32();
-			break;
-		case UT_MM256_LOAD_EPI64:
-			ret = "MM256_LOAD_EPI64";
-			*flag = test_mm256_load_epi64();
-			break;
-		case UT_MM256_LOAD_PD:
-			ret = "MM256_LOAD_PD";
-			*flag = test_mm256_load_pd();
-			break;
-		case UT_MM256_LOAD_PS:
-			ret = "MM256_LOAD_PS";
-			*flag = test_mm256_load_ps();
-			break;
-		case UT_MM512_LOAD_EPI32:
-			ret = "MM512_LOAD_EPI32";
-			*flag = test_mm512_load_epi32();
-			break;
-		case UT_MM512_LOAD_EPI64:
-			ret = "MM512_LOAD_EPI64";
-			*flag = test_mm512_load_epi64();
-			break;
-		case UT_MM512_LOAD_PD:
-			ret = "MM512_LOAD_PD";
-			*flag = test_mm512_load_pd();
-			break;
-		case UT_MM512_LOAD_PS:
-			ret = "MM512_LOAD_PS";
-			*flag = test_mm512_load_ps();
-			break;
-		case UT_MM_STORE_EPI32:
-			ret = "MM_STORE_EPI32";
-			*flag = test_mm_store_epi32();
-			break;
-		case UT_MM_STORE_EPI64:
-			ret = "MM_STORE_EPI64";
-			*flag = test_mm_store_epi64();
-			break;
-		case UT_MM_STORE_SI128:
-			ret = "MM_STORE_SI128";
-			*flag = test_mm_store_si128();
-			break;
-		case UT_MM_STORE_PD:
-			ret = "MM_STORE_PD";
-			*flag = test_mm_store_pd();
-			break;
-		case UT_MM_STORE_PS:
-			ret = "MM_STORE_PS";
-			*flag = test_mm_store_ps();
-			break;
-		case UT_MM256_STORE_EPI32:
-			ret = "MM256_STORE_EPI32";
-			*flag = test_mm256_store_epi32();
-			break;
-		case UT_MM256_STORE_EPI64:
-			ret = "MM256_STORE_EPI64";
-			*flag = test_mm256_store_epi64();
-			break;
-		case UT_MM256_STORE_PD:
-			ret = "MM256_STORE_PD";
-			*flag = test_mm256_store_pd();
-			break;
-		case UT_MM256_STORE_PS:
-			ret = "MM256_STORE_PS";
-			*flag = test_mm256_store_ps();
-			break;
-		case UT_MM512_STORE_EPI32:
-			ret = "MM512_STORE_EPI32";
-			*flag = test_mm512_store_epi32();
-			break;
-		case UT_MM512_STORE_EPI64:
-			ret = "MM512_STORE_EPI64";
-			*flag = test_mm512_store_epi64();
-			break;
-		case UT_MM512_STORE_PD:
-			ret = "MM512_STORE_PD";
-			*flag = test_mm512_store_pd();
-			break;
-		case UT_MM512_STORE_PS:
-			ret = "MM512_STORE_PS";
-			*flag = test_mm512_store_ps();
-			break;
+        case UT_MM_LOAD_EPI32:
+            ret = "MM_LOAD_EPI32";
+            *flag = test_mm_load_epi32();
+            break;
+        case UT_MM_LOAD_EPI64:
+            ret = "MM_LOAD_EPI64";
+            *flag = test_mm_load_epi64();
+            break;
+        case UT_MM_LOAD_SI128:
+            ret = "MM_LOAD_SI128";
+            *flag = test_mm_load_si128();
+            break;
+        case UT_MM_LOAD_PD:
+            ret = "MM_LOAD_PD";
+            *flag = test_mm_load_pd();
+            break;
+        case UT_MM_LOAD_PS:
+            ret = "MM_LOAD_PS";
+            *flag = test_mm_load_ps();
+            break;
+        case UT_MM256_LOAD_EPI32:
+            ret = "MM256_LOAD_EPI32";
+            *flag = test_mm256_load_epi32();
+            break;
+        case UT_MM256_LOAD_EPI64:
+            ret = "MM256_LOAD_EPI64";
+            *flag = test_mm256_load_epi64();
+            break;
+        case UT_MM256_LOAD_PD:
+            ret = "MM256_LOAD_PD";
+            *flag = test_mm256_load_pd();
+            break;
+        case UT_MM256_LOAD_PS:
+            ret = "MM256_LOAD_PS";
+            *flag = test_mm256_load_ps();
+            break;
+        case UT_MM512_LOAD_EPI32:
+            ret = "MM512_LOAD_EPI32";
+            *flag = test_mm512_load_epi32();
+            break;
+        case UT_MM512_LOAD_EPI64:
+            ret = "MM512_LOAD_EPI64";
+            *flag = test_mm512_load_epi64();
+            break;
+        case UT_MM512_LOAD_PD:
+            ret = "MM512_LOAD_PD";
+            *flag = test_mm512_load_pd();
+            break;
+        case UT_MM512_LOAD_PS:
+            ret = "MM512_LOAD_PS";
+            *flag = test_mm512_load_ps();
+            break;
+        case UT_MM_STORE_EPI32:
+            ret = "MM_STORE_EPI32";
+            *flag = test_mm_store_epi32();
+            break;
+        case UT_MM_STORE_EPI64:
+            ret = "MM_STORE_EPI64";
+            *flag = test_mm_store_epi64();
+            break;
+        case UT_MM_STORE_SI128:
+            ret = "MM_STORE_SI128";
+            *flag = test_mm_store_si128();
+            break;
+        case UT_MM_STORE_PD:
+            ret = "MM_STORE_PD";
+            *flag = test_mm_store_pd();
+            break;
+        case UT_MM_STORE_PS:
+            ret = "MM_STORE_PS";
+            *flag = test_mm_store_ps();
+            break;
+        case UT_MM256_STORE_EPI32:
+            ret = "MM256_STORE_EPI32";
+            *flag = test_mm256_store_epi32();
+            break;
+        case UT_MM256_STORE_EPI64:
+            ret = "MM256_STORE_EPI64";
+            *flag = test_mm256_store_epi64();
+            break;
+        case UT_MM256_STORE_PD:
+            ret = "MM256_STORE_PD";
+            *flag = test_mm256_store_pd();
+            break;
+        case UT_MM256_STORE_PS:
+            ret = "MM256_STORE_PS";
+            *flag = test_mm256_store_ps();
+            break;
+        case UT_MM512_STORE_EPI32:
+            ret = "MM512_STORE_EPI32";
+            *flag = test_mm512_store_epi32();
+            break;
+        case UT_MM512_STORE_EPI64:
+            ret = "MM512_STORE_EPI64";
+            *flag = test_mm512_store_epi64();
+            break;
+        case UT_MM512_STORE_PD:
+            ret = "MM512_STORE_PD";
+            *flag = test_mm512_store_pd();
+            break;
+        case UT_MM512_STORE_PS:
+            ret = "MM512_STORE_PS";
+            *flag = test_mm512_store_ps();
+            break;
         default:
             break;
     }
@@ -4943,7 +4943,7 @@ int test_mm512_permutexvar_epi32()
 
 int test_mm_load_epi32()
 {
-	int32_t *a = g_test_mm_load_epi32_data.a;
+    int32_t *a = g_test_mm_load_epi32_data.a;
     int32_t *expect = g_test_mm_load_epi32_data.expect;
     __m128i res = _mm_load_epi32((void const*)a);
     return comp_return(expect, &res, sizeof(__m128i));
@@ -4951,7 +4951,7 @@ int test_mm_load_epi32()
 
 int test_mm_load_epi64()
 {
-	int64_t *a = g_test_mm_load_epi64_data.a;
+    int64_t *a = g_test_mm_load_epi64_data.a;
     int64_t *expect = g_test_mm_load_epi64_data.expect;
     __m128i res = _mm_load_epi64((void const*)a);
     return comp_return(expect, &res, sizeof(__m128i));
@@ -4959,7 +4959,7 @@ int test_mm_load_epi64()
 
 int test_mm_load_si128()
 {
-	int32_t *a = g_test_mm_load_si128_data.a;
+    int32_t *a = g_test_mm_load_si128_data.a;
     int32_t *expect = g_test_mm_load_si128_data.expect;
     __m128i res = _mm_load_si128((__m128i const*)a);
     return comp_return(expect, &res, sizeof(__m128i));
@@ -4967,7 +4967,7 @@ int test_mm_load_si128()
 
 int test_mm_load_ps()
 {
-	float32_t *a = g_test_mm_load_ps_data.a;
+    float32_t *a = g_test_mm_load_ps_data.a;
     float32_t *expect = g_test_mm_load_ps_data.expect;
     __m128 res = _mm_load_ps((float const*)a);
     return comp_return(expect, &res, sizeof(__m128));
@@ -4975,7 +4975,7 @@ int test_mm_load_ps()
 
 int test_mm_load_pd()
 {
-	float64_t *a = g_test_mm_load_pd_data.a;
+    float64_t *a = g_test_mm_load_pd_data.a;
     float64_t *expect = g_test_mm_load_pd_data.expect;
     __m128d res = _mm_load_pd((double const*)a);
     return comp_return(expect, &res, sizeof(__m128d));
@@ -4983,7 +4983,7 @@ int test_mm_load_pd()
 
 int test_mm256_load_epi32()
 {
-	int32_t *a = g_test_mm256_load_epi32_data.a;
+    int32_t *a = g_test_mm256_load_epi32_data.a;
     int32_t *expect = g_test_mm256_load_epi32_data.expect;
     __m256i res = _mm256_load_epi32((void const*)a);
     return comp_return(expect, &res, sizeof(__m256i));
@@ -4991,7 +4991,7 @@ int test_mm256_load_epi32()
 
 int test_mm256_load_epi64()
 {
-	int64_t *a = g_test_mm256_load_epi64_data.a;
+    int64_t *a = g_test_mm256_load_epi64_data.a;
     int64_t *expect = g_test_mm256_load_epi64_data.expect;
     __m256i res = _mm256_load_epi64((void const*)a);
     return comp_return(expect, &res, sizeof(__m256i));
@@ -4999,7 +4999,7 @@ int test_mm256_load_epi64()
 
 int test_mm256_load_ps()
 {
-	float32_t *a = g_test_mm256_load_ps_data.a;
+    float32_t *a = g_test_mm256_load_ps_data.a;
     float32_t *expect = g_test_mm256_load_ps_data.expect;
     __m256 res = _mm256_load_ps((float const*)a);
     return comp_return(expect, &res, sizeof(__m256));
@@ -5007,7 +5007,7 @@ int test_mm256_load_ps()
 
 int test_mm256_load_pd()
 {
-	float64_t *a = g_test_mm256_load_pd_data.a;
+    float64_t *a = g_test_mm256_load_pd_data.a;
     float64_t *expect = g_test_mm256_load_pd_data.expect;
     __m256d res = _mm256_load_pd((double const*)a);
     return comp_return(expect, &res, sizeof(__m256d));
@@ -5015,7 +5015,7 @@ int test_mm256_load_pd()
 
 int test_mm512_load_epi32()
 {
-	int32_t *a = g_test_mm512_load_epi32_data.a;
+    int32_t *a = g_test_mm512_load_epi32_data.a;
     int32_t *expect = g_test_mm512_load_epi32_data.expect;
     __m512i res = _mm512_load_epi32((void const*)a);
     return comp_return(expect, &res, sizeof(__m512i));
@@ -5023,7 +5023,7 @@ int test_mm512_load_epi32()
 
 int test_mm512_load_epi64()
 {
-	int64_t *a = g_test_mm512_load_epi64_data.a;
+    int64_t *a = g_test_mm512_load_epi64_data.a;
     int64_t *expect = g_test_mm512_load_epi64_data.expect;
     __m512i res = _mm512_load_epi64((void const*)a);
     return comp_return(expect, &res, sizeof(__m512i));
@@ -5031,7 +5031,7 @@ int test_mm512_load_epi64()
 
 int test_mm512_load_ps()
 {
-	float32_t *a = g_test_mm512_load_ps_data.a;
+    float32_t *a = g_test_mm512_load_ps_data.a;
     float32_t *expect = g_test_mm512_load_ps_data.expect;
     __m512 res = _mm512_load_ps((float const*)a);
     return comp_return(expect, &res, sizeof(__m512));
@@ -5039,7 +5039,7 @@ int test_mm512_load_ps()
 
 int test_mm512_load_pd()
 {
-	float64_t *a = g_test_mm512_load_pd_data.a;
+    float64_t *a = g_test_mm512_load_pd_data.a;
     float64_t *expect = g_test_mm512_load_pd_data.expect;
     __m512d res = _mm512_load_pd((double const*)a);
     return comp_return(expect, &res, sizeof(__m512d));
@@ -5047,7 +5047,7 @@ int test_mm512_load_pd()
 
 int test_mm_store_epi32()
 {
-	int32_t *a = g_test_mm_store_epi32_data.a;
+    int32_t *a = g_test_mm_store_epi32_data.a;
     int32_t *expect = g_test_mm_store_epi32_data.expect;
     int32_t res[sizeof(__m128i) / sizeof(int32_t)];
     __m128i ma;
@@ -5058,7 +5058,7 @@ int test_mm_store_epi32()
 
 int test_mm_store_epi64()
 {
-	int64_t *a = g_test_mm_store_epi64_data.a;
+    int64_t *a = g_test_mm_store_epi64_data.a;
     int64_t *expect = g_test_mm_store_epi64_data.expect;
     int64_t res[sizeof(__m128i) / sizeof(int64_t)];
     __m128i ma;
@@ -5069,7 +5069,7 @@ int test_mm_store_epi64()
 
 int test_mm_store_si128()
 {
-	int32_t *a = g_test_mm_store_si128_data.a;
+    int32_t *a = g_test_mm_store_si128_data.a;
     int32_t *expect = g_test_mm_store_si128_data.expect;
     __m128i ma, res;
     ma.vect_s32 = vld1q_s32(a);
@@ -5079,7 +5079,7 @@ int test_mm_store_si128()
 
 int test_mm_store_pd()
 {
-	float64_t *a = g_test_mm_store_pd_data.a;
+    float64_t *a = g_test_mm_store_pd_data.a;
     float64_t *expect = g_test_mm_store_pd_data.expect;
     float64_t res[sizeof(__m128d) / sizeof(float64_t)];
     __m128d ma;
@@ -5090,7 +5090,7 @@ int test_mm_store_pd()
 
 int test_mm_store_ps()
 {
-	float32_t *a = g_test_mm_store_ps_data.a;
+    float32_t *a = g_test_mm_store_ps_data.a;
     float32_t *expect = g_test_mm_store_ps_data.expect;
     float32_t res[sizeof(__m128) / sizeof(float32_t)];
     __m128 ma;
@@ -5101,10 +5101,10 @@ int test_mm_store_ps()
 
 int test_mm256_store_epi32()
 {
-	int32_t *a = g_test_mm256_store_epi32_data.a;
+    int32_t *a = g_test_mm256_store_epi32_data.a;
     int32_t *expect = g_test_mm256_store_epi32_data.expect;
     int iCount;
-	int32_t res[sizeof(__m256i) / sizeof(int32_t)];
+    int32_t res[sizeof(__m256i) / sizeof(int32_t)];
     __m256i ma;
     for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
         ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
@@ -5115,10 +5115,10 @@ int test_mm256_store_epi32()
 
 int test_mm256_store_epi64()
 {
-	int64_t *a = g_test_mm256_store_epi64_data.a;
+    int64_t *a = g_test_mm256_store_epi64_data.a;
     int64_t *expect = g_test_mm256_store_epi64_data.expect;
     int iCount;
-	int64_t res[sizeof(__m256i) / sizeof(int64_t)];
+    int64_t res[sizeof(__m256i) / sizeof(int64_t)];
     __m256i ma;
     for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
         ma.vect_s64[iCount] = vld1q_s64(a + iCount * 2);
@@ -5129,10 +5129,10 @@ int test_mm256_store_epi64()
 
 int test_mm256_store_pd()
 {
-	float64_t *a = g_test_mm256_store_pd_data.a;
+    float64_t *a = g_test_mm256_store_pd_data.a;
     float64_t *expect = g_test_mm256_store_pd_data.expect;
     int iCount;
-	float64_t res[sizeof(__m256d) / sizeof(float64_t)];
+    float64_t res[sizeof(__m256d) / sizeof(float64_t)];
     __m256d ma;
     for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
         ma.vect_f64[iCount] = vld1q_f64(a + iCount * 2);
@@ -5143,10 +5143,10 @@ int test_mm256_store_pd()
 
 int test_mm256_store_ps()
 {
-	float32_t *a = g_test_mm256_store_ps_data.a;
+    float32_t *a = g_test_mm256_store_ps_data.a;
     float32_t *expect = g_test_mm256_store_ps_data.expect;
     int iCount;
-	float32_t res[sizeof(__m256) / sizeof(float32_t)];
+    float32_t res[sizeof(__m256) / sizeof(float32_t)];
     __m256 ma;
     for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
         ma.vect_f32[iCount] = vld1q_f32(a + iCount * 4);
@@ -5157,10 +5157,10 @@ int test_mm256_store_ps()
 
 int test_mm512_store_epi32()
 {
-	int32_t *a = g_test_mm512_store_epi32_data.a;
+    int32_t *a = g_test_mm512_store_epi32_data.a;
     int32_t *expect = g_test_mm512_store_epi32_data.expect;
     int iCount;
-	int32_t res[sizeof(__m512i) / sizeof(int32_t)];
+    int32_t res[sizeof(__m512i) / sizeof(int32_t)];
     __m512i ma;
     for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
         ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
@@ -5171,10 +5171,10 @@ int test_mm512_store_epi32()
 
 int test_mm512_store_epi64()
 {
-	int64_t *a = g_test_mm512_store_epi64_data.a;
+    int64_t *a = g_test_mm512_store_epi64_data.a;
     int64_t *expect = g_test_mm512_store_epi64_data.expect;
     int iCount;
-	int64_t res[sizeof(__m512i) / sizeof(int64_t)];
+    int64_t res[sizeof(__m512i) / sizeof(int64_t)];
     __m512i ma;
     for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
         ma.vect_s64[iCount] = vld1q_s64(a + iCount * 2);
@@ -5185,10 +5185,10 @@ int test_mm512_store_epi64()
 
 int test_mm512_store_pd()
 {
-	float64_t *a = g_test_mm512_store_pd_data.a;
+    float64_t *a = g_test_mm512_store_pd_data.a;
     float64_t *expect = g_test_mm512_store_pd_data.expect;
     int iCount;
-	float64_t res[sizeof(__m512d) / sizeof(float64_t)];
+    float64_t res[sizeof(__m512d) / sizeof(float64_t)];
     __m512d ma;
     for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
         ma.vect_f64[iCount] = vld1q_f64(a + iCount * 2);
@@ -5199,10 +5199,10 @@ int test_mm512_store_pd()
 
 int test_mm512_store_ps()
 {
-	float32_t *a = g_test_mm512_store_ps_data.a;
+    float32_t *a = g_test_mm512_store_ps_data.a;
     float32_t *expect = g_test_mm512_store_ps_data.expect;
     int iCount;
-	float32_t res[sizeof(__m512) / sizeof(float32_t)];
+    float32_t res[sizeof(__m512) / sizeof(float32_t)];
     __m512 ma;
     for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
         ma.vect_f32[iCount] = vld1q_f32(a + iCount * 4);
