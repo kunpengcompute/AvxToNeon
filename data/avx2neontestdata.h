@@ -368,6 +368,16 @@ static test_mm512_add_epi64_data_model g_test_mm512_add_epi64_data = {
     {2, 56745275, 9223372036854775807, 0, 2, 56745275, 9223372036854775807, -1}};
 
 typedef struct {
+    uint8_t a[16];
+    uint8_t b[16];
+    uint8_t expect[16];
+} test_mm_adds_epu8_data_model;
+static test_mm_adds_epu8_data_model g_test_mm_adds_epu8_data = {
+    {246, 10,  160, 160, 47,  243, 45,  128, 76,  158, 44, 44, 26, 145, 210, 76},
+    {203, 225, 28, 239, 30, 109, 154, 172, 13,  57,  63,  61, 195, 246, 0,   201},
+    {255, 235, 188, 255, 77,  255, 199, 255, 89,  215, 107, 105, 221, 255, 210, 255}};
+
+typedef struct {
     int8_t a[32];
     int8_t b[32];
     int8_t expect[32];
@@ -745,6 +755,21 @@ static test_mm256_blend_pd_data_model g_test_mm256_blend_pd_data = {{65.3, 0.000
 
 typedef struct {
     __mmask16 k;
+    int32_t a[16];
+    int32_t b[16];
+    int32_t expect[16];
+} test_mm512_mask_blend_epi32_data_model;
+static test_mm512_mask_blend_epi32_data_model g_test_mm512_mask_blend_epi32_data = {
+    0x1234,
+    {1, -1, -1, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516, -21313, -545454, -2147483648,
+     313213, -1695550175, -486101411},
+    {-1, -1, 0, 1321564, 2147483647, -13213211, 25646321, -1277938685, 1, 321321, -113132, 1321564, 2147483647,
+     -13213211, 25646321, -1277938685},
+    {1, -1, 0, -545454, 2147483647, -13213211, -1695550175, -486101411, 1, 321321, -21313, -545454, 2147483647,
+     313213, -1695550175, -486101411}};
+
+typedef struct {
+    __mmask16 k;
     float32_t a[16];
     float32_t b[16];
     float32_t expect[16];
@@ -767,6 +792,16 @@ static test_mm512_mask_blend_pd_data_model g_test_mm512_mask_blend_pd_data = {
     {10, -9.78, 6.33, 0.45, 0, -13, 30.5, 1},
     {100, 20, -7.5, 9.5, 0.2, 3, -65.12, 88.1},
     {10.000000, -9.780000, 6.330000, 0.450000, 0.000000, 3.000000, 30.500000, 1.000000}};
+
+typedef struct {
+    int8_t a[16];
+    int8_t b[16];
+    int8_t expect[16];
+} test_mm_sub_epi8_data_model;
+static test_mm_sub_epi8_data_model g_test_mm_sub_epi8_data = {
+    {-95, 87,  117, -34, 56,  -19, 113, 106, 2,  -103, -21, 64, 49,  39,  119, 44},
+    {-120,-83, 124, 119, -29, 78,  -34, 127, -89, 74, -88, -109, 25, -32, 89,  -104},
+    {25, -86, -7,  103,  85,  -97, -109, -21, 91, 79, 67,   -83, 24, 71, 30, -108}};
 
 typedef struct {
     int16_t a[16];
@@ -1489,6 +1524,42 @@ static test_mm512_bsrli_epi128_data_model g_test_mm512_bsrli_epi128_data = {
     {-4294967296, 4294967295, 51539607552, 0, 8589934591, 2147483648, 2147483647, 0}};
 
 typedef struct {
+    int64_t a[2];
+    uint64_t expect[2];
+} test_mm_slli_si128_data_model;
+static test_mm_slli_si128_data_model g_test_mm_slli_si128_data = {{1, 2}, {65536, 131072}};
+
+typedef struct {
+    int64_t a[2];
+    uint64_t expect[2];
+} test_mm_srli_si128_data_model;
+static test_mm_srli_si128_data_model g_test_mm_srli_si128_data = {{100, 200}, {56294995342131200, 0}};
+
+typedef struct {
+    int32_t a[4];
+    int b;
+    int32_t expect[4];
+} test_mm_slli_epi32_data_model;
+static test_mm_slli_epi32_data_model g_test_mm_slli_epi32_data = {
+    {1, -1, -2147483648, 2147483647}, 2, {4, -4, 0, -4}};
+
+typedef struct {
+    int64_t a[2];
+    int b;
+    int64_t expect[2];
+} test_mm_slli_epi64_data_model;
+static test_mm_slli_epi64_data_model g_test_mm_slli_epi64_data = {
+    {1, 1073741824}, 2, {4, 4294967296}};
+
+typedef struct {
+    int64_t a[2];
+    int b;
+    uint64_t expect[2];
+} test_mm_srli_epi64_data_model;
+static test_mm_srli_epi64_data_model g_test_mm_srli_epi64_data = {
+    {-1, 12}, 2, {4611686018427387903, 3}};
+
+typedef struct {
     int32_t a[8];
     int64_t b[2];
     int32_t expect[8];
@@ -1572,6 +1643,16 @@ static test_mm512_srli_epi64_data_model g_test_mm512_srli_epi64_data = {
     {0, 4611686018427387903, 268435456, 3, 4611686018427387854, 2305843009213693952, 2305843009213693951, 0}};
 
 typedef struct {
+    int32_t a[4];
+    int32_t b[4];
+    int32_t expect[4];
+} test_mm_and_si128_data_model;
+static test_mm_and_si128_data_model g_test_mm_and_si128_data = {
+    {-1090234978, 256672469, -262740460, -658469076},
+    {-2110085158, -378158308, -728891574, 1196371477},
+    {-2113927782, 155484692, -804985344, 1077939716}};
+
+typedef struct {
     int32_t a[8];
     int32_t b[8];
     int32_t expect[8];
@@ -1593,6 +1674,16 @@ static test_mm512_and_si512_data_model g_test_mm512_and_si512_data = {
      941191503, 22951105, 2076498209, 271495372, 1471447272, 940238827, 879641860},
     {-2113927782, 155484692, -804985344, 1077939716, 1635848192, 1074364712, 139247696, 538051733, 134829635, 536940872,
      5506240, 1216626688, 268738756, 1310720, 268591457, 69599236}};
+
+typedef struct {
+    int32_t a[4];
+    int32_t b[4];
+    int32_t expect[4];
+} test_mm_or_si128_data_model;
+static test_mm_or_si128_data_model g_test_mm_or_si128_data = {
+    {-1090234978, 256672469, -262740460, -658469076},
+    {-2110085158, -378158308, -728891574, 1196371477},
+    {-1086392354, -276970531, -186646690, -540037315}};
 
 typedef struct {
     int32_t a[8];
@@ -1619,6 +1710,16 @@ static test_mm512_or_si512_data_model g_test_mm512_or_si512_data = {
      2052848479, -1652638213, 2079194103, 1970273772, 1476183789, 985397227, 1048575479}};
 
 typedef struct {
+    int32_t a[4];
+    int32_t b[4];
+    int32_t expect[4];
+} test_mm_andnot_si128_data_model;
+static test_mm_andnot_si128_data_model g_test_mm_andnot_si128_data = {
+    {-1090234978, 256672469, -262740460, -658469076},
+    {-2110085158, -378158308, -728891574, 1196371477},
+    {3842624, -533643000, 76093770, 118431761}};
+
+typedef struct {
     int32_t a[8];
     int32_t b[8];
     int32_t expect[8];
@@ -1640,6 +1741,16 @@ static test_mm512_andnot_si512_data_model g_test_mm512_andnot_si512_data = {
      941191503, 22951105, 2076498209, 271495372, 1471447272, 940238827, 879641860},
     {3842624, -533643000, 76093770, 118431761, 402654403, 807670800, 850538536, -1983829408, 1135609904, 404250631,
      17444865, 859871521, 2756616, 1470136552, 671647370, 810042624}};
+
+typedef struct {
+    int32_t a[4];
+    int32_t b[4];
+    int32_t expect[4];
+} test_mm_xor_si128_data_model;
+static test_mm_xor_si128_data_model g_test_mm_xor_si128_data = {
+    {-1090234978, 256672469, -262740460, -658469076},
+    {-2110085158, -378158308, -728891574, 1196371477},
+    {1027535428, -432455223, 618338654, -1617977031}};
 
 typedef struct {
     int32_t a[8];
@@ -1779,6 +1890,36 @@ static test_mm256_cmpeq_epi32_data_model g_test_mm256_cmpeq_epi32_data = {
     {4294967295, 0, 4294967295, 0, 0, 4294967295, 0, 4294967295}};
 
 typedef struct {
+    int32_t a[8];
+    int32_t b[8];
+    uint32_t expect[8];
+} test_mm256_cmpgt_epi32_data_model;
+static test_mm256_cmpgt_epi32_data_model g_test_mm256_cmpgt_epi32_data = {
+    {2147483647, -2, 589, 789, 74185, 2, 0, 23},
+    {12, 2, 12, 568, -7895, 32, 15, 23},
+    {4294967295, 0, 4294967295, 4294967295, 4294967295, 0, 0, 0}};
+
+typedef struct {
+    int8_t a[16];
+    int8_t b[16];
+    uint8_t expect[16];
+} test_mm_cmpeq_epi8_data_model;
+static test_mm_cmpeq_epi8_data_model g_test_mm_cmpeq_epi8_data = {
+    {-128, -31, -30, -29, -16, -15, -10, -9, -8, -7,  -6,  -5,  -4,  -3,  -2,  -1},
+    {-128, -31, 1, 34, 12, -33, -10, -9,  7,  4,  127, 11,   23,   111, -2, -1},
+    {255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255}};
+
+typedef struct {
+    int32_t a[4];
+    int32_t b[4];
+    uint32_t expect[4];
+} test_mm_cmpeq_epi32_data_model;
+static test_mm_cmpeq_epi32_data_model g_test_mm_cmpeq_epi32_data = {
+    {2147483647, -2, 48792, 789},
+    {2147483647, 2, 48792, 1236589},
+    {4294967295, 0, 4294967295, 0}};
+
+typedef struct {
     int64_t a[2];
     int64_t b[2];
     uint64_t expect[2];
@@ -1825,6 +1966,16 @@ static test_mm512_cmpeq_epi8_mask_data_model g_test_mm512_cmpeq_epi8_mask_data =
      59,  0,   66,  10,  -21,  6,   63,   -124, -101, -1,  100,  -71,  -65,  -26, 108, 94,
      -2,  89,  106, -23, -100, 18,  -116, 57,   -39,  -33, 1,    107,  -123, 54,  70,  -17},
     1152921513205174272};
+
+typedef struct {
+    int32_t a[16];
+    int32_t b[16];
+    __mmask16 expect;
+} test_mm512_cmpgt_epi32_mask_data_model;
+static test_mm512_cmpgt_epi32_mask_data_model g_test_mm512_cmpgt_epi32_mask_data = {
+    {-94, -95, -110, -22,  -37, 120, 91,  93,   -74,  123, 19,  -9, -50, -101, 50,  99},
+    {23,  25,  -61, 113, -122, 66,  -24,  -117, -19,  16,  -8,   66,   -50,  -92, -81, 58},
+    50928};
 
 typedef struct {
     int8_t a[64];
@@ -1954,6 +2105,21 @@ typedef struct {
 static test_mm_move_sd_data_model g_test_mm_move_sd_data = {{1.0, 1.0}, {2.0, 2.0}, {2.0, 1.0}};
 
 typedef struct {
+    int8_t a[16];
+    int expect;
+} test_mm_movemask_epi8_data_model;
+static test_mm_movemask_epi8_data_model g_test_mm_movemask_epi8_data = {
+    {-2, 30, 127, 100, 4,   8, 10, -43, -56, 102, 120, 70, 45, -12, 20, 27},
+    (int)0x00002181};
+
+typedef struct {
+    float32_t a[4];
+    int expect;
+} test_mm_movemask_ps_data_model;
+static test_mm_movemask_ps_data_model g_test_mm_movemask_ps_data = {
+    {1.500000, 127.199997, 8.000000, -9.562000}, 0x00000008};
+
+typedef struct {
     int8_t a[32];
     int expect;
 } test_mm256_movemask_epi8_data_model;
@@ -1999,6 +2165,13 @@ static test_mm512_movm_epi8_data_model g_test_mm512_movm_epi8_data = {
     0x123456789ABCDEF0, {0,  0,  0,  0,  -1, -1, -1, -1, 0,  -1, -1, -1, -1, 0,  -1, -1, 0,  0, -1, -1, -1, -1,
                          0,  -1, 0,  -1, 0,  -1, -1, 0,  0,  -1, 0,  0,  0,  -1, -1, -1, -1, 0, 0,  -1, -1, 0,
                          -1, 0,  -1, 0,  0,  0,  -1, 0,  -1, -1, 0,  0,  0,  -1, 0,  0,  -1, 0, 0,  0}};
+
+typedef struct {
+    unsigned short a;
+    int32_t expect[16];
+} test_mm512_movm_epi32_data_model;
+static test_mm512_movm_epi32_data_model g_test_mm512_movm_epi32_data = {
+    0x1234, {0, 0, -1, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0}};
 
 typedef struct {
     int32_t a[4];
@@ -2106,6 +2279,16 @@ typedef struct {
     unsigned long expect;
 } test_mm_crc32_u64_data_model;
 static test_mm_crc32_u64_data_model g_test_mm_crc32_u64_data = {4257207552971783972, 4094426903918957320, 3846645531};
+
+typedef struct {
+    int8_t a[16];
+    int8_t b[16];
+    int8_t expect[16];
+} test_mm_shuffle_epi8_data_model;
+static test_mm_shuffle_epi8_data_model g_test_mm_shuffle_epi8_data = {
+    {-111, 14, 91, 125, -59,  66, 97,  -83, 21, 62, 42,  -41, -37,  26, 63,   -1},
+    {111, -60, 20, -117, -77, -122, -80, -75, 65,  -19, -44, 20, 88,  21,  106, 1},
+    {-1, 0, -59, 0, 0, 0, 0, 0, 14, 0, 0, -59, 21, 66, 42, 14}};
 
 typedef struct {
     int8_t a[32];
@@ -2243,6 +2426,14 @@ static test_mm512_unpackhi_epi8_data_model g_test_mm512_unpackhi_epi8_data = {
     {-99,  -18, 17,  80,  -40, -70, 100, 11, 61,   36,  -67, -105, 102, -109, -81, -15, 93,  -19, -122, -85, 23, 48,
      -126, -89, 0,   -70, 81,  19,  -39, 64, -6,   -22, 67,  -3,   115, 41,   -12, -28, 73,  -77, -117, -46, 60, 120,
      67,   -84, -74, 120, -91, 15,  30,  94, -112, -86, 89,  21,   -89, -110, -27, 69,  116, 104, 105,  -57}};
+
+typedef struct {
+    int32_t a[4];
+    int32_t expect[4];
+} test_mm_storeu_si128_data_model;
+static test_mm_storeu_si128_data_model g_test_mm_storeu_si128_data = {{-59, -99, 96, 41},
+                                                                      {-59, -99, 96, 41}};
+
 typedef struct {
     int32_t a[8];
     int32_t expect[8];
@@ -2258,10 +2449,33 @@ static test_mm256_storeu_si256_data_model g_test_mm256_storeu_si256_data = {{-59
                                                                             {-59, -99, 96, 41, 74, 33, -117, -24}};
 
 typedef struct {
+    int32_t a[8];
+    int32_t expect[8];
+} test_mm256_stream_si256_data_model;
+static test_mm256_stream_si256_data_model g_test_mm256_stream_si256_data = {{-59, -99, 96, 41, 74, 33, -117, -24},
+                                                                            {-59, -99, 96, 41, 74, 33, -117, -24}};
+
+typedef struct {
     int32_t a[16];
     int32_t expect[16];
 } test_mm512_store_si512_data_model;
 static test_mm512_store_si512_data_model g_test_mm512_store_si512_data = {
+    {-59, -99, 96, 41, 74, 33, -117, -24, -9, 19, 6, 12, 33, 4, -11, -4},
+    {-59, -99, 96, 41, 74, 33, -117, -24, -9, 19, 6, 12, 33, 4, -11, -4}};
+
+typedef struct {
+    int32_t a[16];
+    int32_t expect[16];
+} test_mm512_storeu_si512_data_model;
+static test_mm512_storeu_si512_data_model g_test_mm512_storeu_si512_data = {
+    {-59, -99, 96, 41, 74, 33, -117, -24, -9, 19, 6, 12, 33, 4, -11, -4},
+    {-59, -99, 96, 41, 74, 33, -117, -24, -9, 19, 6, 12, 33, 4, -11, -4}};
+
+typedef struct {
+    int32_t a[16];
+    int32_t expect[16];
+} test_mm512_stream_si512_data_model;
+static test_mm512_stream_si512_data_model g_test_mm512_stream_si512_data = {
     {-59, -99, 96, 41, 74, 33, -117, -24, -9, 19, 6, 12, 33, 4, -11, -4},
     {-59, -99, 96, 41, 74, 33, -117, -24, -9, 19, 6, 12, 33, 4, -11, -4}};
 
@@ -2304,6 +2518,18 @@ typedef struct {
 } test_mm256_permute4x64_epi64_data_model;
 static test_mm256_permute4x64_epi64_data_model g_test_mm256_permute4x64_epi64_data = {
     {100, 200, 300, 400}, 27, {400, 300, 200, 100}};
+
+typedef struct {
+    int64_t a[4];
+    int64_t b[4];
+    int imm;
+    int64_t expect[4];
+} test_mm256_permute2f128_si256_data_model;
+static test_mm256_permute2f128_si256_data_model g_test_mm256_permute2f128_si256_data = {
+    {100, 200, 300, 400},
+    {125, 852, 453, 20},
+    27,
+    {0, 0, 300, 400}};
 
 typedef struct {
     float64_t a[2];
@@ -2357,10 +2583,24 @@ static test_mm256_set_pd_data_model g_test_mm256_set_pd_data = {
 };
 
 typedef struct {
+    int32_t expect[4];
+} test_mm_setzero_si128_data_model;
+static test_mm_setzero_si128_data_model g_test_mm_setzero_si128_data = {
+    {0, 0, 0, 0},
+};
+
+typedef struct {
     int32_t expect[8];
 } test_mm256_setzero_si256_data_model;
 static test_mm256_setzero_si256_data_model g_test_mm256_setzero_si256_data = {
     {0, 0, 0, 0, 0, 0, 0, 0},
+};
+
+typedef struct {
+    int32_t expect[16];
+} test_mm512_setzero_si512_data_model;
+static test_mm512_setzero_si512_data_model g_test_mm512_setzero_si512_data = {
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
 
 typedef struct {
@@ -2375,6 +2615,33 @@ typedef struct {
 } test_mm256_setzero_pd_data_model;
 static test_mm256_setzero_pd_data_model g_test_mm256_setzero_pd_data = {
     {0.0, 0.0, 0.0, 0.0},
+};
+
+typedef struct {
+    int8_t a;
+    int8_t expect[16];
+} test_mm_set1_epi8_data_model;
+static test_mm_set1_epi8_data_model g_test_mm_set1_epi8_data = {
+    '0',
+    {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
+};
+
+typedef struct {
+    int32_t a;
+    int32_t expect[4];
+} test_mm_set1_epi32_data_model;
+static test_mm_set1_epi32_data_model g_test_mm_set1_epi32_data = {
+    2019,
+    {2019, 2019, 2019, 2019},
+};
+
+typedef struct {
+    float32_t a;
+    float32_t expect[4];
+} test_mm_set1_ps_data_model;
+static test_mm_set1_ps_data_model g_test_mm_set1_ps_data = {
+    2.019f,
+    {2.019f, 2.019f, 2.019f, 2.019f},
 };
 
 typedef struct {
@@ -2439,6 +2706,24 @@ typedef struct {
 static test_mm256_set1_ps_data_model g_test_mm256_set1_ps_data = {
     2.019f,
     {2.019f, 2.019f, 2.019f, 2.019f, 2.019f, 2.019f, 2.019f, 2.019f},
+};
+
+typedef struct {
+    int32_t a[8];
+    int32_t expect[8];
+} test_mm_load_si128_data_model;
+static test_mm_load_si128_data_model g_test_mm_load_si128_data = {
+    {1, 2, 3, 4},
+    {1, 2, 3, 4},
+};
+
+typedef struct {
+    int32_t a[8];
+    int32_t expect[8];
+} test_mm_loadu_si128_data_model;
+static test_mm_loadu_si128_data_model g_test_mm_loadu_si128_data = {
+    {1, 2, 3, 4},
+    {1, 2, 3, 4},
 };
 
 typedef struct {
@@ -2623,6 +2908,15 @@ static test_mm256_castps256_ps128_data_model g_test_mm256_castps256_ps128_data =
 
 typedef struct {
     int32_t a[4];
+    float32_t expect[4];
+} test_mm_castsi128_ps_data_model;
+static test_mm_castsi128_ps_data_model g_test_mm_castsi128_ps_data = {
+    {1065353216, 1073741824, 1077936128, 1082130432},
+    {1.0f, 2.0f, 3.0f, 4.0f},
+};
+
+typedef struct {
+    int32_t a[4];
     int32_t expect[8];
 } test_mm256_castsi128_si256_data_model;
 static test_mm256_castsi128_si256_data_model g_test_mm256_castsi128_si256_data = {
@@ -2646,6 +2940,24 @@ typedef struct {
 static test_mm256_castsi256_si128_data_model g_test_mm256_castsi256_si128_data = {
     {1, 2, 3, 4, 5, 6, 7, 8},
     {1, 2, 3, 4},
+};
+
+typedef struct {
+    int32_t a;
+    int32_t expect[4];
+} test_mm_cvtsi32_si128_data_model;
+static test_mm_cvtsi32_si128_data_model g_test_mm_cvtsi32_si128_data = {
+    2020,
+    {2020, 0, 0, 0},
+};
+
+typedef struct {
+    int32_t a[4];
+    int32_t expect;
+} test_mm_cvtsi128_si32_data_model;
+static test_mm_cvtsi128_si32_data_model g_test_mm_cvtsi128_si32_data = {
+    {2023, 2022, 2021, 2020},
+    2023,
 };
 
 typedef struct {
@@ -2842,222 +3154,17 @@ static test_mm512_permutexvar_epi32_data_model g_test_mm512_permutexvar_epi32_da
 };
 
 typedef struct {
-    int32_t a[4];
-    int32_t expect[4];
-} test_mm_load_epi32_data_model;
-static test_mm_load_epi32_data_model g_test_mm_load_epi32_data = {
-    {1, 16516, -21313, -545454},
-    {1, 16516, -21313, -545454}};
-
-typedef struct {
-    int64_t a[2];
-    int64_t expect[2];
-} test_mm_load_epi64_data_model;
-static test_mm_load_epi64_data_model g_test_mm_load_epi64_data = {
-    {-21313, -545454},
-    {-21313, -545454}};
-
-typedef struct {
-    int32_t a[4];
-    int32_t expect[4];
-} test_mm_load_si128_data_model;
-static test_mm_load_si128_data_model g_test_mm_load_si128_data = {
-    {1, 16516, -21313, -545454},
-    {1, 16516, -21313, -545454}};
-
-typedef struct {
-    float64_t a[2];
-    float64_t expect[2];
-} test_mm_load_pd_data_model;
-static test_mm_load_pd_data_model g_test_mm_load_pd_data = {
-    {13132.31, -666.66},
-    {13132.31, -666.66}};
-
-typedef struct {
-    float32_t a[4];
-    float32_t expect[4];
-} test_mm_load_ps_data_model;
-static test_mm_load_ps_data_model g_test_mm_load_ps_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875}};
-
-typedef struct {
-    int32_t a[8];
-    int32_t expect[8];
-} test_mm256_load_epi32_data_model;
-static test_mm256_load_epi32_data_model g_test_mm256_load_epi32_data = {
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411},
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411}};
-
-typedef struct {
-    int64_t a[4];
-    int64_t expect[4];
-} test_mm256_load_epi64_data_model;
-static test_mm256_load_epi64_data_model g_test_mm256_load_epi64_data = {
-    {-2147483648, 313213, -1695550175, -486101411},
-    {-2147483648, 313213, -1695550175, -486101411}};
-
-typedef struct {
-    float32_t a[8];
-    float32_t expect[8];
-} test_mm256_load_ps_data_model;
-static test_mm256_load_ps_data_model g_test_mm256_load_ps_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312}};
-
-typedef struct {
-    float64_t a[4];
-    float64_t expect[4];
-} test_mm256_load_pd_data_model;
-static test_mm256_load_pd_data_model g_test_mm256_load_pd_data = {
-    {64281.750000, 89742.835938, 73413.921875, 62127.492188},
-    {64281.750000, 89742.835938, 73413.921875, 62127.492188}};
-
-
-typedef struct {
     int32_t a[16];
+    int32_t idx[16];
+    int32_t b[16];
     int32_t expect[16];
-} test_mm512_load_epi32_data_model;
-static test_mm512_load_epi32_data_model g_test_mm512_load_epi32_data = {
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516, -21313, -545454, -2147483648,
-     313213, -1695550175, -486101411},
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516, -21313, -545454, -2147483648,
-     313213, -1695550175, -486101411}};
-
-typedef struct {
-    int64_t a[8];
-    int64_t expect[8];
-} test_mm512_load_epi64_data_model;
-static test_mm512_load_epi64_data_model g_test_mm512_load_epi64_data = {
-    {-21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516},
-    {-21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516}};
-
-typedef struct {
-    float32_t a[16];
-    float32_t expect[16];
-} test_mm512_load_ps_data_model;
-static test_mm512_load_ps_data_model g_test_mm512_load_ps_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312,
-     35417.636719, 12672.005859, 48391.230469, 99421.414062, 26799.482422, 18733.376953, 87186.093750, 14267.460938},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312,
-     35417.636719, 12672.005859, 48391.230469, 99421.414062, 26799.482422, 18733.376953, 87186.093750, 14267.460938}};
-
-typedef struct {
-    float64_t a[8];
-    float64_t expect[8];
-} test_mm512_load_pd_data_model;
-static test_mm512_load_pd_data_model g_test_mm512_load_pd_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312}};
-
-typedef struct {
-    int32_t a[4];
-    int32_t expect[4];
-} test_mm_store_epi32_data_model;
-static test_mm_store_epi32_data_model g_test_mm_store_epi32_data = {
-    {1, 16516, -21313, -545454},
-    {1, 16516, -21313, -545454}};
-
-typedef struct {
-    int64_t a[2];
-    int64_t expect[2];
-} test_mm_store_epi64_data_model;
-static test_mm_store_epi64_data_model g_test_mm_store_epi64_data = {
-    {-21313, -545454},
-    {-21313, -545454}};
-
-typedef struct {
-    int32_t a[4];
-    int32_t expect[4];
-} test_mm_store_si128_data_model;
-static test_mm_store_si128_data_model g_test_mm_store_si128_data = {
-    {1, 16516, -21313, -545454},
-    {1, 16516, -21313, -545454}};
-
-typedef struct {
-    float64_t a[2];
-    float64_t expect[2];
-} test_mm_store_pd_data_model;
-static test_mm_store_pd_data_model g_test_mm_store_pd_data = {
-    {13132.31, -666.66},
-    {13132.31, -666.66}};
-
-typedef struct {
-    float32_t a[4];
-    float32_t expect[4];
-} test_mm_store_ps_data_model;
-static test_mm_store_ps_data_model g_test_mm_store_ps_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875}};
-
-typedef struct {
-    int32_t a[8];
-    int32_t expect[8];
-} test_mm256_store_epi32_data_model;
-static test_mm256_store_epi32_data_model g_test_mm256_store_epi32_data = {
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411},
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411}};
-
-typedef struct {
-    int64_t a[4];
-    int64_t expect[4];
-} test_mm256_store_epi64_data_model;
-static test_mm256_store_epi64_data_model g_test_mm256_store_epi64_data = {
-    {-2147483648, 313213, -1695550175, -486101411},
-    {-2147483648, 313213, -1695550175, -486101411}};
-
-typedef struct {
-    float32_t a[8];
-    float32_t expect[8];
-} test_mm256_store_ps_data_model;
-static test_mm256_store_ps_data_model g_test_mm256_store_ps_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312}};
-
-typedef struct {
-    float64_t a[4];
-    float64_t expect[4];
-} test_mm256_store_pd_data_model;
-static test_mm256_store_pd_data_model g_test_mm256_store_pd_data = {
-    {64281.750000, 89742.835938, 73413.921875, 62127.492188},
-    {64281.750000, 89742.835938, 73413.921875, 62127.492188}};
-
-
-typedef struct {
-    int32_t a[16];
-    int32_t expect[16];
-} test_mm512_store_epi32_data_model;
-static test_mm512_store_epi32_data_model g_test_mm512_store_epi32_data = {
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516, -21313, -545454, -2147483648,
-     313213, -1695550175, -486101411},
-    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516, -21313, -545454, -2147483648,
-     313213, -1695550175, -486101411}};
-
-typedef struct {
-    int64_t a[8];
-    int64_t expect[8];
-} test_mm512_store_epi64_data_model;
-static test_mm512_store_epi64_data_model g_test_mm512_store_epi64_data = {
-    {-21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516},
-    {-21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516}};
-
-typedef struct {
-    float32_t a[16];
-    float32_t expect[16];
-} test_mm512_store_ps_data_model;
-static test_mm512_store_ps_data_model g_test_mm512_store_ps_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312,
-     35417.636719, 12672.005859, 48391.230469, 99421.414062, 26799.482422, 18733.376953, 87186.093750, 14267.460938},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312,
-     35417.636719, 12672.005859, 48391.230469, 99421.414062, 26799.482422, 18733.376953, 87186.093750, 14267.460938}};
-
-typedef struct {
-    float64_t a[8];
-    float64_t expect[8];
-} test_mm512_store_pd_data_model;
-static test_mm512_store_pd_data_model g_test_mm512_store_pd_data = {
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312},
-    {55720.105469, 64281.750000, 89742.835938, 73413.921875, 62127.492188, 89540.796875, 91808.859375, 18845.945312}};
+} test_mm512_permutex2var_epi32_data_model;
+static test_mm512_permutex2var_epi32_data_model g_test_mm512_permutex2var_epi32_data = {
+    {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000},
+    {1, 2, 3, 4, 5, 6, 7, 24, 9, 10, 25, 12, 13, 14, 15, 16},
+    {23,  25,  -61, 113, -122, 66,  -24,  -117, -19,  16,  -8,   66,   -50,  -92, -81, 58},
+    {2000, 3000, 4000, 5000, 6000, 7000, 8000, -19, 10000, 11000, 16, 13000, 14000, 15000, 16000, 23},
+};
 
 typedef struct {
     float32_t a[16];
@@ -3150,4 +3257,97 @@ static int test_mm256_cmp_ps_data_model_ordered_ret[32][8] = {
     {0, 0, 0, 0, 0, 0, 0, 0},         {0, -1, 0, 0, -1, 0, -1, -1},     {0, -1, 0, 0, -1, 0, -1, -1}, 
     {0, 0, 0, 0, 0, 0, 0, 0},         {-1, -1, -1, -1, -1, -1, -1, -1}, {-1, 0, -1, -1, 0, -1, 0, 0}, 
     {-1, 0, -1, -1, 0, -1, 0, 0},     {-1, -1, -1, -1, -1, -1, -1, -1}};
+
+typedef struct {
+    uint8_t a[16];
+    uint8_t b[16];
+    uint8_t expect[16];
+} test_mm_max_epu8_data_model;
+static test_mm_max_epu8_data_model g_test_mm_max_epu8_data = {
+    {246, 10, 160, 160, 47,  243, 45, 128, 76, 158, 44, 44, 26, 145, 210, 76},
+    {203, 225, 28, 239, 30, 109, 154, 172, 13, 57, 63, 61, 195, 246, 0, 201},
+    {246, 225, 160, 239, 47, 243, 154, 172, 76, 158, 63, 61, 195, 246, 210, 201}};
+
+typedef struct {
+    uint8_t a[16];
+    uint8_t b[16];
+    uint8_t expect[16];
+} test_mm_min_epu8_data_model;
+static test_mm_min_epu8_data_model g_test_mm_min_epu8_data = {
+    {246, 10,  160, 160, 47,  243, 45,  128, 76,  158, 44, 44, 26, 145, 210, 76},
+    {203, 225, 28, 239, 30, 109, 154, 172, 13,  57,  63,  61, 195, 246, 0, 201},
+    {203, 10, 28, 160, 30, 109, 45, 128, 13, 57, 44, 44, 26, 145, 0, 76}};
+
+typedef struct {
+    int32_t a[8];
+    int32_t b[8];
+    int32_t expect[8];
+} test_mm256_max_epi32_data_model;
+static test_mm256_max_epi32_data_model g_test_mm256_max_epi32_data = {
+    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411},
+    {1, 321321, -113132, 1321564, 2147483647, -13213211, 25646321, -1277938685},
+    {1, 321321, -21313, 1321564, 2147483647, 313213, 25646321, -486101411,}};
+
+typedef struct {
+    int32_t a[16];
+    int32_t b[16];
+    int32_t expect[16];
+} test_mm512_max_epi32_data_model;
+static test_mm512_max_epi32_data_model g_test_mm512_max_epi32_data = {
+    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411, 1, 16516, -21313, -545454, -2147483648,
+     313213, -1695550175, -486101411},
+    {1, 321321, -113132, 1321564, 2147483647, -13213211, 25646321, -1277938685, 1, 321321, -113132, 1321564, 2147483647,
+     -13213211, 25646321, -1277938685},
+    {1, 321321, -21313, 1321564, 2147483647, 313213, 25646321, -486101411, 1, 321321, -21313, 1321564, 2147483647, 
+     313213, 25646321, -486101411}};
+
+typedef struct {
+    int16_t a[8];
+    int16_t b[8];
+    int16_t expect[8];
+} test_mm_packs_epi16_data_model;
+static test_mm_packs_epi16_data_model g_test_mm_packs_epi16_data = {
+    {-1, -18716, 7272, 1, -28335, -3286, -19673, -26955},
+    {12271, 2, 30699, -5904, 22925, 28211, -5074, 14008},
+    {-32513, 383, -32640, -32640, 639, -32641, 32639, 32640}};
+
+typedef struct {
+    int32_t a[4];
+    int32_t b[4];
+    int32_t expect[4];
+} test_mm_packs_epi32_data_model;
+static test_mm_packs_epi32_data_model g_test_mm_packs_epi32_data = {
+    {1, 16516, -21313, -545454},
+    {1, 321321, -113132, 1321564},
+    {1082392577, -2147439425, 2147418113, 2147450880}};
+
+typedef struct {
+    int32_t a[8];
+    int32_t b[8];
+    int32_t expect[8];
+} test_mm256_packs_epi32_data_model;
+static test_mm256_packs_epi32_data_model g_test_mm256_packs_epi32_data = {
+    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411},
+    {1, 321321, -113132, 1321564, 2147483647, -13213211, 25646321, -1277938685},
+    {1082392577, -2147439425, 2147418113, 2147450880, 2147450880, -2147450880, -2147450881, -2147450881}};
+
+typedef struct {
+    int32_t a[16];
+    int32_t b[16];
+    int32_t expect[16];
+} test_mm512_packs_epi32_data_model;
+static test_mm512_packs_epi32_data_model g_test_mm512_packs_epi32_data = {
+    {1, 16516, -21313, -545454, -2147483648, 313213, -1695550175, -486101411,
+     -1, -18716, 7272, 1, -28335, -3286, -19673, -26955},
+    {1, 321321, -113132, 1321564, 2147483647, -13213211, 25646321, -1277938685,
+     12271, 2, 30699, -5904, 22925, 28211, -5074, 14008},
+    {1082392577, -2147439425, 2147418113, 2147450880, 2147450880, -2147450880, -2147450881, -2147450881,
+     -1226506241, 72808, 143343, -386893845, -215314095, -1766477017, 1848859021, 918088750}};
+
+typedef struct {
+    size_t size;
+    size_t align;
+} test_mm_malloc_data_model;
+static test_mm_malloc_data_model g_test_mm_malloc_data = {128, 128};
+
 #endif

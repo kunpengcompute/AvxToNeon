@@ -23,6 +23,7 @@
 #include <arm_neon.h>
 
 #include <math.h>
+#include <stdlib.h>
 #ifdef __cplusplus
 using namespace std;
 #endif
@@ -834,62 +835,265 @@ FORCE_INLINE __m128i _mm_insert_epi32 (__m128i a, int i, const int imm8)
     return a;
 }
 
-FORCE_INLINE __m128i _mm_load_epi32 (void const* mem_addr)
+FORCE_INLINE __m128i _mm_set1_epi8(char w)
 {
     __m128i res;
-    res.vect_s32 = vld1q_s32((const int32_t *)mem_addr);
+    res.vect_s8 = vdupq_n_s8(w);
     return res;
 }
 
-FORCE_INLINE __m128i _mm_load_epi64 (void const* mem_addr)
+FORCE_INLINE __m128i _mm_set1_epi32(int _i)
 {
     __m128i res;
-    res.vect_s64 = vld1q_s64((const int64_t *)mem_addr);
+    res.vect_s32 = vdupq_n_s32(_i);
     return res;
 }
 
-FORCE_INLINE __m128i _mm_load_si128 (__m128i const* mem_addr)
-{
-    __m128i res;
-    res.vect_s32 = vld1q_s32((const int32_t *)mem_addr);
-    return res;
-}
-
-FORCE_INLINE __m128d _mm_load_pd (double const* mem_addr)
-{
-    __m128d res;
-    res = vld1q_f64((const double *)mem_addr);
-    return res;
-}
-
-FORCE_INLINE __m128 _mm_load_ps (float const* mem_addr)
+FORCE_INLINE __m128 _mm_set1_ps (float a)
 {
     __m128 res;
-    res = vld1q_f32((const float *)mem_addr);
+    res = vdupq_n_f32(a);
     return res;
 }
 
-FORCE_INLINE void _mm_store_epi32 (void* mem_addr, __m128i a)
+FORCE_INLINE __m128i _mm_cmpeq_epi8 (__m128i a, __m128i b)
 {
-    vst1q_s32((int32_t *)mem_addr, a.vect_s32);
+    __m128i res;
+    res.vect_u8 = vceqq_s8(a.vect_s8, b.vect_s8);
+    return res;
 }
 
-FORCE_INLINE void _mm_store_epi64 (void* mem_addr, __m128i a)
+FORCE_INLINE __m128i _mm_cmpeq_epi32(__m128i a, __m128i b)
 {
-    vst1q_s64((int64_t *)mem_addr, a.vect_s64);
+    __m128i res;
+    res.vect_u32 = vceqq_s32(a.vect_s32, b.vect_s32);
+    return res;
 }
 
-FORCE_INLINE void _mm_store_si128 (__m128i* mem_addr, __m128i a)
+FORCE_INLINE void _mm_storeu_si128(__m128i *p, __m128i a)
 {
-    vst1q_s32((int32_t *)mem_addr, a.vect_s32);
+    vst1q_s32((int32_t*) p, a.vect_s32);
 }
 
-FORCE_INLINE void _mm_store_pd (double* mem_addr, __m128d a)
+FORCE_INLINE __m128i _mm_loadu_si128(const __m128i *p)
 {
-    vst1q_f64(mem_addr, a);
+    __m128i res;
+    res.vect_s32 = vld1q_s32((const int32_t *)p);
+    return res;
 }
 
-FORCE_INLINE void _mm_store_ps (float* mem_addr, __m128 a)
+FORCE_INLINE __m128i _mm_load_si128(const __m128i *p)
 {
-    vst1q_f32(mem_addr, a);
+    __m128i res;
+    res.vect_s32 = vld1q_s32((const int32_t *)p);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_and_si128(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s32 = vandq_s32(a.vect_s32, b.vect_s32);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_or_si128(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s32 = vorrq_s32(a.vect_s32, b.vect_s32);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_xor_si128(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s32 = veorq_s32(a.vect_s32, b.vect_s32);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_andnot_si128(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s32 = vbicq_s32(b.vect_s32, a.vect_s32);
+    return res;
+}
+
+FORCE_INLINE __m128 _mm_castsi128_ps(__m128i a)
+{
+    __m128 res;
+    res = vreinterpretq_f32_s32(a.vect_s32);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_max_epu8(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_u8 = vmaxq_u8(a.vect_u8, b.vect_u8);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_min_epu8(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_u8 = vminq_u8(a.vect_u8, b.vect_u8);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_sub_epi8(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s8 = vsubq_s8(a.vect_s8, b.vect_s8);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_adds_epu8(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_u8 = vqaddq_u8(a.vect_u8, b.vect_u8);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_setzero_si128()
+{
+    __m128i res;
+    res.vect_s32 = vdupq_n_s32(0);
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_slli_si128 (__m128i a, int imm8)
+{
+    assert(imm8 >=0 && imm8 < 256);
+    __m128i res;
+    if (likely(imm8 > 0 && imm8 <= 15)) {
+        res.vect_s8 = vextq_s8(vdupq_n_s8(0), a.vect_s8, 16 - (imm8));
+    } else if (imm8 == 0) {
+        res = a;
+    } else {
+        res.vect_s8 = vdupq_n_s8(0);
+    }
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_srli_si128 (__m128i a, int imm8)
+{
+    assert(imm8 >=0 && imm8 < 256);
+    __m128i res;
+    if (likely(imm8 > 0 && imm8 <= 15)) {
+        res.vect_s8 = vextq_s8(a.vect_s8, vdupq_n_s8(0), (imm8));
+    } else if (imm8 == 0) {
+        res = a;
+    } else {
+        res.vect_s8 = vdupq_n_s8(0);
+    }
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_slli_epi32 (__m128i a, int imm8)
+{
+    __m128i res;
+    if (likely(imm8 >= 0 && imm8 < 32)) {
+        res.vect_s32 = vshlq_n_s32(a.vect_s32, imm8);
+    } else {
+        res.vect_s32 = vdupq_n_s32(0);
+    } 
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_slli_epi64 (__m128i a, int imm8)
+{
+    __m128i res;
+    if (likely(imm8 >= 0 && imm8 < 64)) {
+        res.vect_s64 = vshlq_n_s64(a.vect_s64, imm8);
+    } else {
+        res.vect_s64 = vdupq_n_s64(0);
+    } 
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_srli_epi64 (__m128i a, int imm8)
+{
+    __m128i res;
+    if (likely(imm8 >= 0 && imm8 < 64)) {
+        int64x2_t vect_imm = vdupq_n_s64(-imm8);
+        res.vect_u64 = vshlq_u64(a.vect_u64, vect_imm);
+    } else {
+        res.vect_u64 = vdupq_n_u64(0);
+    } 
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_cvtsi32_si128(int a)
+{
+    __m128i res;
+    res.vect_s32 = vsetq_lane_s32(a, vdupq_n_s32(0), 0);
+    return res;
+}
+
+FORCE_INLINE int _mm_cvtsi128_si32(__m128i a)
+{
+    return vgetq_lane_s32(a.vect_s32, 0);
+}
+
+FORCE_INLINE __m128i _mm_packs_epi16(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s8 = vcombine_s8(vqmovn_s16(a.vect_s16), vqmovn_s16(b.vect_s16));
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_packs_epi32(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s16 = vcombine_s16(vqmovn_s32(a.vect_s32), vqmovn_s32(b.vect_s32));
+    return res;
+}
+
+FORCE_INLINE int _mm_movemask_ps(__m128 a)
+{
+    __m128i res_m128i;
+    res_m128i.vect_u32 = vshrq_n_u32(vreinterpretq_u32_f32(a), 31);
+    res_m128i.vect_u64 = vsraq_n_u64(res_m128i.vect_u64, res_m128i.vect_u64, 31);
+    return (int)(vgetq_lane_u8(res_m128i.vect_u8, 0) | (vgetq_lane_u8(res_m128i.vect_u8, 8) << 2));
+}
+
+FORCE_INLINE int _mm_movemask_epi8(__m128i a)
+{
+    int res;
+    __asm__ __volatile__ (
+        "ushr %[a0].16b, %[a0].16b, #7          \n\t"
+        "usra %[a0].8h, %[a0].8h, #7            \n\t"
+        "usra %[a0].4s, %[a0].4s, #14           \n\t"
+        "usra %[a0].2d, %[a0].2d, #28           \n\t"
+        "ins %[a0].b[1], %[a0].b[8]             \n\t"
+        "umov %w[r], %[a0].h[0]"
+        :[r]"=r"(res), [a0]"+w"(a.vect_u8)
+        :
+        :
+    );
+    return res;
+}
+
+FORCE_INLINE __m128i _mm_shuffle_epi8(__m128i a,__m128i b)
+{
+    __m128i res;
+    uint8x16_t mask_and = vdupq_n_u8(0x8f);
+    res.vect_u8 = vqtbl1q_u8(a.vect_u8, vandq_u8(b.vect_u8, mask_and));
+    return res;
+}
+
+FORCE_INLINE void* _mm_malloc (size_t size, size_t align)
+{
+    void *ptr;
+    if (align == 1)
+        return malloc (size);
+    if (align == 2 || (sizeof (void *) == 8 && align == 4))
+        align = sizeof (void *);
+    if (posix_memalign (&ptr, align, size) == 0)
+        return ptr;
+    else
+        return NULL;
+}
+
+FORCE_INLINE void _mm_free (void * mem_addr)
+{
+    free(mem_addr);
 }
