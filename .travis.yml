@@ -1,0 +1,21 @@
+dist: bionic
+
+os:
+  - linux
+
+arch:
+  - arm64 
+
+addons:
+  apt:
+    update: true
+  hosts:
+    - node2
+
+language: 
+  - c
+  
+script:  
+  - cd tests
+  - make clean;make
+  - ./test
