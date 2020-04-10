@@ -892,6 +892,30 @@ FORCE_INLINE __m256i _mm256_permute4x64_epi64(__m256i a, const int imm8)
     return res;
 }
 
+FORCE_INLINE __m256i _mm256_permute2f128_si256 (__m256i a, __m256i b, int imm8)
+{
+    __m256i res;
+    int bit_0 = imm8 & 0x1, bit_1 = imm8 & 0x2, bit_3 = imm8 & 0x8;
+    if (bit_1 == 0) {
+        res.vect_s32[0] = a.vect_s32[bit_0];
+    } else {
+        res.vect_s32[0] = b.vect_s32[bit_0];
+    }
+    if (bit_3) {
+        res.vect_s32[0] = vdupq_n_s32(0);
+    }
+    bit_0 = (imm8 & 0x10) >> 4, bit_1 = imm8 & 0x20, bit_3 = imm8 & 0x80;
+    if (bit_1 == 0) {
+        res.vect_s32[1] = a.vect_s32[bit_0];
+    } else {
+        res.vect_s32[1] = b.vect_s32[bit_0];
+    }
+    if (bit_3) {
+        res.vect_s32[1] = vdupq_n_s32(0);
+    }
+    return res;
+}
+
 FORCE_INLINE __m256i _mm256_set_epi32(int e7, int e6, int e5, int e4, int e3, int e2, int e1, int e0)
 {
     __m256i res_m256i;
@@ -998,6 +1022,12 @@ FORCE_INLINE void _mm256_storeu_si256(__m256i* mem_addr, __m256i a)
 {
     vst1q_s8((int8_t*)mem_addr, a.vect_s8[0]);
     vst1q_s8((int8_t*)mem_addr + 16, a.vect_s8[1]);
+}
+
+FORCE_INLINE void _mm256_stream_si256 (__m256i * mem_addr, __m256i a)
+{
+    vst1q_s32((int32_t*)mem_addr, a.vect_s32[0]);
+    vst1q_s32((int32_t*)mem_addr + 4, a.vect_s32[1]);
 }
 
 FORCE_INLINE __m256i _mm256_load_si256(__m256i const* mem_addr)
@@ -1304,6 +1334,14 @@ FORCE_INLINE __m256i _mm256_insert_epi64 (__m256i a, __int64 i, const int index)
         a.vect_s64[0] = vsetq_lane_s64(i, a.vect_s64[0], index);
     }
     return a;
+}
+
+FORCE_INLINE __m256i _mm256_cmpgt_epi32 (__m256i a, __m256i b)
+{
+    __m256i res;
+    res.vect_u32[0] = vcgtq_s32(a.vect_s32[0], b.vect_s32[0]);
+    res.vect_u32[1] = vcgtq_s32(a.vect_s32[1], b.vect_s32[1]);
+    return res;
 }
 
 FORCE_INLINE __m256i _mm256_cmpeq_epi32 (__m256i a, __m256i b)
@@ -2211,4 +2249,20 @@ FORCE_INLINE void _mm256_store_ps (float * mem_addr, __m256 a)
 {
     vst1q_f32(mem_addr, a.vect_f32[0]);
     vst1q_f32(mem_addr + 4, a.vect_f32[1]);
+}
+
+FORCE_INLINE __m256i _mm256_max_epi32 (__m256i a, __m256i b)
+{
+    __m256i res;
+    res.vect_s32[0] = vmaxq_s32(a.vect_s32[0], b.vect_s32[0]);
+    res.vect_s32[1] = vmaxq_s32(a.vect_s32[1], b.vect_s32[1]);
+    return res;
+}
+
+FORCE_INLINE __m256i _mm256_packs_epi32 (__m256i a, __m256i b)
+{
+    __m256i res;
+    res.vect_s16[0] = vcombine_s16(vqmovn_s32(a.vect_s32[0]), vqmovn_s32(b.vect_s32[0]));
+    res.vect_s16[1] = vcombine_s16(vqmovn_s32(a.vect_s32[1]), vqmovn_s32(b.vect_s32[1]));
+    return res;
 }

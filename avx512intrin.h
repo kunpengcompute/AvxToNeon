@@ -687,6 +687,21 @@ FORCE_INLINE __m512i _mm512_permutexvar_epi64(__m512i idx, __m512i a)
     return res;
 }
 
+FORCE_INLINE __m512i _mm512_permutex2var_epi32 (__m512i a, __m512i idx, __m512i b)
+{
+    __m512i res;
+    int32_t *ptr_a = (int32_t *)&a;
+    int32_t *ptr_b = (int32_t *)&b;
+    int32_t *ptr_i = (int32_t *)&idx;
+    int32_t *ptr_r = (int32_t *)&res;
+    int i;
+    for (i = 0; i < 16; ++i) {
+        int id = ptr_i[i] & 0x0f;
+        ptr_r[i] = ((ptr_i[i] & 0x10)) ? ptr_b[id] : ptr_a[id];
+    }
+    return res;
+}
+
 FORCE_INLINE __mmask64 _mm512_test_epi8_mask(__m512i a, __m512i b)
 {
     uint8x16_t mask_and = vld1q_u8(g_mask_epi8);
@@ -1130,6 +1145,19 @@ FORCE_INLINE __mmask16 _mm512_cmplt_epi32_mask(__m512i a, __m512i b)
     return result;
 }
 
+FORCE_INLINE __mmask16 _mm512_cmpgt_epi32_mask (__m512i a, __m512i b)
+{
+    __mmask16 sign;
+    __mmask16 *k = &sign;
+    __m512i res;
+    res.vect_u32[0] = vcgtq_s32(a.vect_s32[0], b.vect_s32[0]);
+    res.vect_u32[1] = vcgtq_s32(a.vect_s32[1], b.vect_s32[1]);
+    res.vect_u32[2] = vcgtq_s32(a.vect_s32[2], b.vect_s32[2]);
+    res.vect_u32[3] = vcgtq_s32(a.vect_s32[3], b.vect_s32[3]);
+    PICK_HB_32x16(res, k);
+    return sign;
+}
+
 FORCE_INLINE __mmask16 _mm512_cmple_epi32_mask(__m512i a, __m512i b)
 {
     uint32x4_t vect_mask = vld1q_u32(g_mask_epi32);
@@ -1504,6 +1532,16 @@ FORCE_INLINE __m512d _mm512_setzero_pd()
     return res_m512d;
 }
 
+FORCE_INLINE __m512i _mm512_setzero_si512 ()
+{
+    __m512i res_m512i;
+    res_m512i.vect_s32[0] = vdupq_n_s32(0);
+    res_m512i.vect_s32[1] = res_m512i.vect_s32[0];
+    res_m512i.vect_s32[2] = res_m512i.vect_s32[0];
+    res_m512i.vect_s32[3] = res_m512i.vect_s32[0];
+    return res_m512i;
+}
+
 FORCE_INLINE __m512i _mm512_movm_epi8(__mmask64 k)
 {
     uint8x8_t mk = vcreate_u8(k);
@@ -1519,6 +1557,18 @@ FORCE_INLINE __m512i _mm512_movm_epi8(__mmask64 k)
     res_m512i.vect_u8[2] = vtstq_u8(mask_and, res_m512i.vect_u8[2]);
     res_m512i.vect_u8[3] = vtstq_u8(mask_and, res_m512i.vect_u8[3]);
     return res_m512i;
+}
+
+FORCE_INLINE __m512i _mm512_movm_epi32 (__mmask16 k)
+{
+    __m512i res;
+    unsigned int mk = k;
+    uint32x4_t mask_and = vld1q_u32(g_mask_epi32);
+    res.vect_u32[0] = vtstq_u32(vdupq_n_u32(mk), mask_and);
+    res.vect_u32[1] = vtstq_u32(vdupq_n_u32(mk >> 4), mask_and);
+    res.vect_u32[2] = vtstq_u32(vdupq_n_u32(mk >> 8), mask_and);
+    res.vect_u32[3] = vtstq_u32(vdupq_n_u32(mk >> 12), mask_and);
+    return res;
 }
 
 FORCE_INLINE __m128i _mm512_extracti32x4_epi32(__m512i a, const int imm8)
@@ -1550,6 +1600,22 @@ FORCE_INLINE __m256d _mm512_extractf64x4_pd (__m512d a, int imm8)
 }
 
 FORCE_INLINE void _mm512_store_si512(void* mem_addr, __m512i a)
+{
+    vst1q_s64((int64_t*)mem_addr, a.vect_s64[0]);
+    vst1q_s64((int64_t*)mem_addr + 2, a.vect_s64[1]);
+    vst1q_s64((int64_t*)mem_addr + 4, a.vect_s64[2]);
+    vst1q_s64((int64_t*)mem_addr + 6, a.vect_s64[3]);
+}
+
+FORCE_INLINE void _mm512_storeu_si512 (void* mem_addr, __m512i a)
+{
+    vst1q_s64((int64_t*)mem_addr, a.vect_s64[0]);
+    vst1q_s64((int64_t*)mem_addr + 2, a.vect_s64[1]);
+    vst1q_s64((int64_t*)mem_addr + 4, a.vect_s64[2]);
+    vst1q_s64((int64_t*)mem_addr + 6, a.vect_s64[3]);
+}
+
+FORCE_INLINE void _mm512_stream_si512 (void* mem_addr, __m512i a)
 {
     vst1q_s64((int64_t*)mem_addr, a.vect_s64[0]);
     vst1q_s64((int64_t*)mem_addr + 2, a.vect_s64[1]);
@@ -1695,6 +1761,23 @@ FORCE_INLINE __m512i _mm512_multishift_epi64_epi8(__m512i a, __m512i b)
     __m512i res;
     res.vect_i256[0] = _mm256_multishift_epi64_epi8(a.vect_i256[0], b.vect_i256[0]);
     res.vect_i256[1] = _mm256_multishift_epi64_epi8(a.vect_i256[1], b.vect_i256[1]);
+    return res;
+}
+
+FORCE_INLINE __m512i _mm512_mask_blend_epi32 (__mmask16 k, __m512i a, __m512i b)
+{
+    __m512i res;
+    uint32x4_t vect_mask = vld1q_u32(g_mask_epi32);
+    uint32x4_t vect_imm = vdupq_n_u32(k);
+    uint32x4_t flag[4];
+    flag[0] = vtstq_u32(vect_imm, vect_mask);
+    flag[1] = vtstq_u32(vshrq_n_u32(vect_imm, 4), vect_mask);
+    flag[2] = vtstq_u32(vshrq_n_u32(vect_imm, 8), vect_mask);
+    flag[3] = vtstq_u32(vshrq_n_u32(vect_imm, 12), vect_mask);
+    res.vect_s32[0] = vbslq_s32(flag[0], b.vect_s32[0], a.vect_s32[0]);
+    res.vect_s32[1] = vbslq_s32(flag[1], b.vect_s32[1], a.vect_s32[1]);
+    res.vect_s32[2] = vbslq_s32(flag[2], b.vect_s32[2], a.vect_s32[2]);
+    res.vect_s32[3] = vbslq_s32(flag[3], b.vect_s32[3], a.vect_s32[3]);
     return res;
 }
 
@@ -1903,4 +1986,24 @@ FORCE_INLINE void _mm512_store_ps (float * mem_addr, __m512 a)
     vst1q_f32(mem_addr + 4, a.vect_f32[1]);
     vst1q_f32(mem_addr + 8, a.vect_f32[2]);
     vst1q_f32(mem_addr + 12, a.vect_f32[3]);
+}
+
+FORCE_INLINE __m512i _mm512_max_epi32 (__m512i a, __m512i b)
+{
+    __m512i res;
+    res.vect_s32[0] = vmaxq_s32(a.vect_s32[0], b.vect_s32[0]);
+    res.vect_s32[1] = vmaxq_s32(a.vect_s32[1], b.vect_s32[1]);
+    res.vect_s32[2] = vmaxq_s32(a.vect_s32[2], b.vect_s32[2]);
+    res.vect_s32[3] = vmaxq_s32(a.vect_s32[3], b.vect_s32[3]);
+    return res;
+}
+
+FORCE_INLINE __m512i _mm512_packs_epi32 (__m512i a, __m512i b)
+{
+    __m512i res;
+    res.vect_s16[0] = vcombine_s16(vqmovn_s32(a.vect_s32[0]), vqmovn_s32(b.vect_s32[0]));
+    res.vect_s16[1] = vcombine_s16(vqmovn_s32(a.vect_s32[1]), vqmovn_s32(b.vect_s32[1]));
+    res.vect_s16[2] = vcombine_s16(vqmovn_s32(a.vect_s32[2]), vqmovn_s32(b.vect_s32[2]));
+    res.vect_s16[3] = vcombine_s16(vqmovn_s32(a.vect_s32[3]), vqmovn_s32(b.vect_s32[3]));
+    return res;
 }
