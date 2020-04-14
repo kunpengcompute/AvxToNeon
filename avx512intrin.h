@@ -1972,20 +1972,20 @@ FORCE_INLINE void _mm512_store_epi64 (void* mem_addr, __m512i a)
     vst1q_s64((int64_t *)mem_addr + 6, a.vect_s64[3]);
 }
 
-FORCE_INLINE void _mm512_store_pd (double * mem_addr, __m512d a)
+FORCE_INLINE void _mm512_store_pd (void* mem_addr, __m512d a)
 {
-    vst1q_f64(mem_addr, a.vect_f64[0]);
-    vst1q_f64(mem_addr + 2, a.vect_f64[1]);
-    vst1q_f64(mem_addr + 4, a.vect_f64[2]);
-    vst1q_f64(mem_addr + 6, a.vect_f64[3]);
+    vst1q_f64((float64_t *)mem_addr, a.vect_f64[0]);
+    vst1q_f64((float64_t *)mem_addr + 2, a.vect_f64[1]);
+    vst1q_f64((float64_t *)mem_addr + 4, a.vect_f64[2]);
+    vst1q_f64((float64_t *)mem_addr + 6, a.vect_f64[3]);
 }
 
-FORCE_INLINE void _mm512_store_ps (float * mem_addr, __m512 a)
+FORCE_INLINE void _mm512_store_ps (void* mem_addr, __m512 a)
 {
-    vst1q_f32(mem_addr, a.vect_f32[0]);
-    vst1q_f32(mem_addr + 4, a.vect_f32[1]);
-    vst1q_f32(mem_addr + 8, a.vect_f32[2]);
-    vst1q_f32(mem_addr + 12, a.vect_f32[3]);
+    vst1q_f32((float32_t *)mem_addr, a.vect_f32[0]);
+    vst1q_f32((float32_t *)mem_addr + 4, a.vect_f32[1]);
+    vst1q_f32((float32_t *)mem_addr + 8, a.vect_f32[2]);
+    vst1q_f32((float32_t *)mem_addr + 12, a.vect_f32[3]);
 }
 
 FORCE_INLINE __m512i _mm512_max_epi32 (__m512i a, __m512i b)
