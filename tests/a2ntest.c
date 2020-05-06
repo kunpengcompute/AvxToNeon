@@ -8,7 +8,6 @@
 #include "a2ntest.h"
 
 #include <math.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "avx2neontestdata.h"
@@ -197,6 +196,10 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM512_ADD_EPI64";
             *flag = test_mm512_add_epi64();
             break;
+        case UT_MM_ADDS_EPU8:
+            ret = "MM_ADDS_EPU8";
+            *flag = test_mm_adds_epu8();
+            break;
         case UT_MM256_ADDS_EPI8:
             ret = "MM256_ADDS_EPI8";
             *flag = test_mm256_adds_epi8();
@@ -292,6 +295,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM256_ADDSUB_PD:
             ret = "MM256_ADDSUB_PD";
             *flag = test_mm256_addsub_pd();
+            break;
+        case UT_MM_SUB_EPI8:
+            ret = "MM_SUB_EPI8";
+            *flag = test_mm_sub_epi8();
             break;
         case UT_MM256_SUB_EPI16:
             ret = "MM256_SUB_EPI16";
@@ -545,6 +552,26 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM_SLL_EPI64";
             *flag = test_mm_sll_epi64();
             break;
+        case UT_MM_SLLI_SI128:
+            ret = "MM_SLLI_SI128";
+            *flag = test_mm_slli_si128();
+            break;
+        case UT_MM_SRLI_SI128:
+            ret = "MM_SRLI_SI128";
+            *flag = test_mm_srli_si128();
+            break;
+        case UT_MM_SLLI_EPI32:
+            ret = "MM_SLLI_EPI32";
+            *flag = test_mm_slli_epi32();
+            break;
+        case UT_MM_SLLI_EPI64:
+            ret = "MM_SLLI_EPI64";
+            *flag = test_mm_slli_epi64();
+            break;
+        case UT_MM_SRLI_EPI64:
+            ret = "MM_SRLI_EPI64";
+            *flag = test_mm_srli_epi64();
+            break;
         case UT_MM256_SLL_EPI32:
             ret = "MM256_SLL_EPI32";
             *flag = test_mm256_sll_epi32();
@@ -601,6 +628,10 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM256_BLEND_PS";
             *flag = test_mm256_blend_ps();
             break;
+        case UT_MM512_MASK_BLEND_EPI32:
+            ret = "MM512_MASK_BLEND_EPI32";
+            *flag = test_mm512_mask_blend_epi32();
+            break;
         case UT_MM512_MASK_BLEND_PD:
             ret = "MM512_MASK_BLEND_PD";
             *flag = test_mm512_mask_blend_pd();
@@ -608,6 +639,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM512_MASK_BLEND_PS:
             ret = "MM512_MASK_BLEND_PS";
             *flag = test_mm512_mask_blend_ps();
+            break;
+        case UT_MM_AND_SI128:
+            ret = "MM_AND_SI128";
+            *flag = test_mm_and_si128();
             break;
         case UT_MM256_AND_SI256:
             ret = "MM256_AND_SI256";
@@ -617,6 +652,10 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM512_AND_SI512";
             *flag = test_mm512_and_si512();
             break;
+        case UT_MM_OR_SI128:
+            ret = "MM_OR_SI128";
+            *flag = test_mm_or_si128();
+            break;
         case UT_MM256_OR_SI256:
             ret = "MM256_OR_SI256";
             *flag = test_mm256_or_si256();
@@ -625,6 +664,10 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM512_OR_SI512";
             *flag = test_mm512_or_si512();
             break;
+        case UT_MM_ANDNOT_SI128:
+            ret = "MM_ANDNOT_SI128";
+            *flag = test_mm_andnot_si128();
+            break;
         case UT_MM256_ANDNOT_SI256:
             ret = "MM256_ANDNOT_SI256";
             *flag = test_mm256_andnot_si256();
@@ -632,6 +675,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM512_ANDNOT_SI512:
             ret = "MM512_ANDNOT_SI512";
             *flag = test_mm512_andnot_si512();
+            break;
+        case UT_MM_XOR_SI128:
+            ret = "MM_XOR_SI128";
+            *flag = test_mm_xor_si128();
             break;
         case UT_MM256_XOR_SI256:
             ret = "MM256_XOR_SI256";
@@ -673,6 +720,18 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM512_XOR_PD";
             *flag = test_mm512_xor_pd();
             break;
+        case UT_MM_CMPEQ_EPI8:
+            ret = "MM_CMPEQ_EPI8";
+            *flag = test_mm_cmpeq_epi8();
+            break;
+        case UT_MM_CMPEQ_EPI32:
+            ret = "MM_CMPEQ_EPI32";
+            *flag = test_mm_cmpeq_epi32();
+            break;
+        case UT_MM256_CMPGT_EPI32:
+            ret = "MM256_CMPGT_EPI32";
+            *flag = test_mm256_cmpgt_epi32();
+            break;
         case UT_MM256_CMPEQ_EPI8:
             ret = "MM256_CMPEQ_EPI8";
             *flag = test_mm256_cmpeq_epi8();
@@ -696,6 +755,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM512_CMPEQ_EPI8_MASK:
             ret = "MM512_CMPEQ_EPI8_MASK";
             *flag = test_mm512_cmpeq_epi8_mask();
+            break;
+        case UT_MM512_CMPGT_EPI32_MASK:
+            ret = "MM512_CMPGT_EPI32_MASK";
+            *flag = test_mm512_cmpgt_epi32_mask();
             break;
         case UT_MM512_MASK_CMPEQ_EPI8_MASK:
             ret = "MM512_MASK_CMPEQ_EPI8_MASK";
@@ -753,6 +816,14 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM_MOVE_SS";
             *flag = test_mm_move_ss();
             break;
+        case UT_MM_MOVEMASK_EPI8:
+            ret = "MM_MOVEMASK_EPI8";
+            *flag = test_mm_movemask_epi8();
+            break;
+        case UT_MM_MOVEMASK_PS:
+            ret = "MM_MOVEMASK_PS";
+            *flag = test_mm_movemask_ps();
+            break;
         case UT_MM256_MOVEMASK_EPI8:
             ret = "MM256_MOVEMASK_EPI8";
             *flag = test_mm256_movemask_epi8();
@@ -772,6 +843,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM512_MOVM_EPI8:
             ret = "MM512_MOVM_EPI8";
             *flag = test_mm512_movm_epi8();
+            break;
+        case UT_MM512_MOVM_EPI32:
+            ret = "MM512_MOVM_EPI32";
+            *flag = test_mm512_movm_epi32();
             break;
         case UT_MM_EXTRACT_EPI32:
             ret = "MM_EXTRACT_EPI32";
@@ -846,6 +921,10 @@ const char *RunTest(InstructionTest test, int *flag)
             *flag = test_mm512_unpackhi_epi8();
             break;
 
+        case UT_MM_STOREU_SI128:
+            ret = "MM_STOREU_SI128";
+            *flag = test_mm_storeu_si128();
+            break;
         case UT_MM256_STORE_SI256:
             ret = "MM256_STORE_SI256";
             *flag = test_mm256_store_si256();
@@ -854,9 +933,21 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM256_STOREU_SI256";
             *flag = test_mm256_storeu_si256();
             break;
+        case UT_MM256_STREAM_SI256:
+            ret = "MM256_STREAM_SI256";
+            *flag = test_mm256_stream_si256();
+            break;
         case UT_MM512_STORE_SI512:
             ret = "MM512_STORE_SI512";
             *flag = test_mm512_store_si512();
+            break;
+        case UT_MM512_STOREU_SI512:
+            ret = "MM512_STOREU_SI512";
+            *flag = test_mm512_storeu_si512();
+            break;
+        case UT_MM512_STREAM_SI512:
+            ret = "MM512_STREAM_SI512";
+            *flag = test_mm512_stream_si512();
             break;
         case UT_MM256_INSERTI128_SI256:
             ret = "MM256_INSERTI128_SI256";
@@ -873,6 +964,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM256_PERMUTE4X64_EPI64:
             ret = "MM256_PERMUTE4X64_EPI64";
             *flag = test_mm256_permute4x64_epi64();
+            break;
+        case UT_MM256_PERMUTE2F128_SI256:
+            ret = "MM256_PERMUTE2F128_SI256";
+            *flag = test_mm256_permute2f128_si256();
             break;
         case UT_MM_SET_PD:
             ret = "MM_SET_PD";
@@ -898,9 +993,17 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM256_SET_PD";
             *flag = test_mm256_set_pd();
             break;
+        case UT_MM_SETZERO_SI128:
+            ret = "MM_SETZERO_SI128";
+            *flag = test_mm_setzero_si128();
+            break;
         case UT_MM256_SETZERO_SI256:
             ret = "MM256_SETZERO_SI256";
             *flag = test_mm256_setzero_si256();
+            break;
+        case UT_MM512_SETZERO_SI512:
+            ret = "MM512_SETZERO_SI512";
+            *flag = test_mm512_setzero_si512();
             break;
         case UT_MM256_SETZERO_PS:
             ret = "MM256_SETZERO_PS";
@@ -909,6 +1012,18 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM256_SETZERO_PD:
             ret = "MM256_SETZERO_PD";
             *flag = test_mm256_setzero_pd();
+            break;
+        case UT_MM_SET1_EPI8:
+            ret = "MM_SET1_EPI8";
+            *flag = test_mm_set1_epi8();
+            break;
+        case UT_MM_SET1_EPI32:
+            ret = "MM_SET1_EPI32";
+            *flag = test_mm_set1_epi32();
+            break;
+        case UT_MM_SET1_PS:
+            ret = "MM_SET1_PS";
+            *flag = test_mm_set1_ps();
             break;
         case UT_MM_SET1_EPI64X:
             ret = "MM_SET1_EPI64X";
@@ -937,6 +1052,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM256_SET1_PS:
             ret = "MM256_SET1_PS";
             *flag = test_mm256_set1_ps();
+            break;
+        case UT_MM_LOADU_SI128:
+            ret = "MM_LOADU_SI128";
+            *flag = test_mm_loadu_si128();
             break;
         case UT_MM256_LOAD_SI256:
             ret = "MM256_LOAD_SI256";
@@ -1006,6 +1125,10 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM256_CASTPS256_PS128";
             *flag = test_mm256_castps256_ps128();
             break;
+        case UT_MM_CASTSI128_PS:
+            ret = "MM_CASTSI128_PS";
+            *flag = test_mm_castsi128_ps();
+            break;
         case UT_MM256_CASTSI128_SI256:
             ret = "MM256_CASTSI128_SI256";
             *flag = test_mm256_castsi128_si256();
@@ -1018,6 +1141,14 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM256_CASTSI256_SI128";
             *flag = test_mm256_castsi256_si128();
             break;
+        case UT_MM_CVTSI32_SI128:
+            ret = "MM_CVTSI32_SI128";
+            *flag = test_mm_cvtsi32_si128();
+            break;
+        case UT_MM_CVTSI128_SI32:
+            ret = "MM_CVTSI128_SI32";
+            *flag = test_mm_cvtsi128_si32();
+            break;
         case UT_MM256_CVTEPI32_PD:
             ret = "MM256_CVTEPI32_PD";
             *flag = test_mm256_cvtepi32_pd();
@@ -1025,6 +1156,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM256_CVTEPI32_PS:
             ret = "MM256_CVTEPI32_PS";
             *flag = test_mm256_cvtepi32_ps();
+            break;
+        case UT_MM_SHUFFLE_EPI8:
+            ret = "MM_SHUFFLE_EPI8";
+            *flag = test_mm_shuffle_epi8();
             break;
         case UT_MM256_SHUFFLE_EPI8:
             ret = "MM256_SHUFFLE_EPI8";
@@ -1113,6 +1248,10 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM512_PERMUTEXVAR_EPI32:
             ret = "MM512_PERMUTEXVAR_EPI32";
             *flag = test_mm512_permutexvar_epi32();
+            break;
+        case UT_MM512_PERMUTEX2VAR_EPI32:
+            ret = "MM512_PERMUTEX2VAR_EPI32";
+            *flag = test_mm512_permutex2var_epi32();
             break;
         case UT_MM256_CMP_PD:
             ret = "MM256_CMP_PD";
@@ -1233,6 +1372,42 @@ const char *RunTest(InstructionTest test, int *flag)
         case UT_MM512_STORE_PS:
             ret = "MM512_STORE_PS";
             *flag = test_mm512_store_ps();
+            break;
+		case UT_MM_MAX_EPU8:
+            ret = "MM_MAX_EPU8";
+            *flag = test_mm_max_epu8();
+            break;
+        case UT_MM_MIN_EPU8:
+            ret = "MM_MIN_EPU8";
+            *flag = test_mm_min_epu8();
+            break;
+        case UT_MM256_MAX_EPI32:
+            ret = "MM256_MAX_EPI32";
+            *flag = test_mm256_max_epi32();
+            break;
+        case UT_MM512_MAX_EPI32:
+            ret = "MM512_MAX_EPI32";
+            *flag = test_mm512_max_epi32();
+            break;
+        case UT_MM_PACKS_EPI16:
+            ret = "MM_PACKS_EPI16";
+            *flag = test_mm_packs_epi16();
+            break;
+        case UT_MM_PACKS_EPI32:
+            ret = "MM_PACKS_EPI32";
+            *flag = test_mm_packs_epi32();
+            break;
+        case UT_MM256_PACKS_EPI32:
+            ret = "MM256_PACKS_EPI32";
+            *flag = test_mm256_packs_epi32();
+            break;
+        case UT_MM512_PACKS_EPI32:
+            ret = "MM512_PACKS_EPI32";
+            *flag = test_mm512_packs_epi32();
+            break;
+        case UT_MM_MALLOC:
+            ret = "MM_MALLOC";
+            *flag = test_mm_malloc();
             break;
         default:
             break;
@@ -1752,6 +1927,18 @@ int test_mm512_add_epi64()
     return comp_return(expect, &res, sizeof(__m512i));
 }
 
+int test_mm_adds_epu8()
+{
+    uint8_t *a = g_test_mm_adds_epu8_data.a;
+    uint8_t *b = g_test_mm_adds_epu8_data.b;
+    uint8_t *expect = g_test_mm_adds_epu8_data.expect;
+    __m128i ma, mb;
+    ma.vect_u8 = vld1q_u8(a);
+    mb.vect_u8 = vld1q_u8(b);
+    __m128i res = _mm_adds_epu8(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm256_adds_epi8()
 {
     int8_t *a = g_test_mm256_adds_epi8_data.a;
@@ -2138,6 +2325,18 @@ int test_mm256_addsub_pd()
     return IsEqualFloat64x4(res, expect, DEFAULT_EPSILON_F64);
 }
 
+int test_mm_sub_epi8()
+{
+    int8_t *a = g_test_mm_sub_epi8_data.a;
+    int8_t *b = g_test_mm_sub_epi8_data.b;
+    int8_t *expect = g_test_mm_sub_epi8_data.expect;
+    __m128i ma, mb;
+    ma.vect_s8 = vld1q_s8(a);
+    mb.vect_s8 = vld1q_s8(b);
+    __m128i res = _mm_sub_epi8(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm256_sub_epi16()
 {
     int16_t *a = g_test_mm256_sub_epi16_data.a;
@@ -2341,6 +2540,59 @@ int test_mm_sll_epi64()
     ma.vect_s64 = vld1q_s64(a);
     mb.vect_s64 = vld1q_s64(b);
     __m128i res = _mm_sll_epi64(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_slli_si128()
+{
+    int64_t *a = g_test_mm_slli_si128_data.a;
+    uint64_t *expect = g_test_mm_slli_si128_data.expect;
+    __m128i ma;
+    ma.vect_s64 = vld1q_s64(a);
+    __m128i res = _mm_slli_si128(ma, 2);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_srli_si128()
+{
+    int64_t *a = g_test_mm_srli_si128_data.a;
+    uint64_t *expect = g_test_mm_srli_si128_data.expect;
+    __m128i ma;
+    ma.vect_s64 = vld1q_s64(a);
+    __m128i res = _mm_srli_si128(ma, 2);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_slli_epi32()
+{
+    int32_t *a = g_test_mm_slli_epi32_data.a;
+    int b = g_test_mm_slli_epi32_data.b;
+    int32_t *expect = g_test_mm_slli_epi32_data.expect;
+    __m128i ma;
+    ma.vect_s32 = vld1q_s32(a);
+    __m128i res = _mm_slli_epi32(ma, b);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_slli_epi64()
+{
+    int64_t *a = g_test_mm_slli_epi64_data.a;
+    int b = g_test_mm_slli_epi64_data.b;
+    int64_t *expect = g_test_mm_slli_epi64_data.expect;
+    __m128i ma;
+    ma.vect_s64 = vld1q_s64(a);
+    __m128i res = _mm_slli_epi64(ma, b);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_srli_epi64()
+{
+    int64_t *a = g_test_mm_srli_epi64_data.a;
+    int b = g_test_mm_srli_epi64_data.b;
+    uint64_t *expect = g_test_mm_srli_epi64_data.expect;
+    __m128i ma;
+    ma.vect_s64 = vld1q_s64(a);
+    __m128i res = _mm_srli_epi64(ma, b);
     return comp_return(expect, &res, sizeof(__m128i));
 }
 
@@ -2554,6 +2806,25 @@ int test_mm256_blend_pd()
 
     return IsEqualFloat64x4(res, expect, DEFAULT_EPSILON_F64);
 }
+
+int test_mm512_mask_blend_epi32()
+{
+    int32_t *arr_a = g_test_mm512_mask_blend_epi32_data.a;
+    int32_t *arr_b = g_test_mm512_mask_blend_epi32_data.b;
+    __mmask16 k = g_test_mm512_mask_blend_epi32_data.k;
+    int32_t *expect = g_test_mm512_mask_blend_epi32_data.expect;
+    __m512i a, b, res;
+    int iCount;
+    for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
+        a.vect_s32[iCount] = vld1q_s32(arr_a + iCount * 4);
+        b.vect_s32[iCount] = vld1q_s32(arr_b + iCount * 4);
+    }
+
+    res = _mm512_mask_blend_epi32(k, a, b);
+
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
 int test_mm512_mask_blend_ps()
 {
     float32_t *arr_a = g_test_mm512_mask_blend_ps_data.a;
@@ -3329,6 +3600,18 @@ int test_mm512_mul_round_ps()
     return IsEqualFloat32x16(res, expect, DEFAULT_EPSILON_F32);
 }
 
+int test_mm_and_si128()
+{
+    int32_t *a = g_test_mm_and_si128_data.a;
+    int32_t *b = g_test_mm_and_si128_data.b;
+    int32_t *expect = g_test_mm_and_si128_data.expect;
+    __m128i ma, mb;
+    ma.vect_s32 = vld1q_s32(a);
+    mb.vect_s32 = vld1q_s32(b);
+    __m128i res = _mm_and_si128(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm256_and_si256()
 {
     int32_t *a = g_test_mm256_and_si256_data.a;
@@ -3357,6 +3640,19 @@ int test_mm512_and_si512()
     __m512i res = _mm512_and_si512(ma, mb);
     return comp_return(expect, &res, sizeof(__m512i));
 }
+
+int test_mm_or_si128()
+{
+    int32_t *a = g_test_mm_or_si128_data.a;
+    int32_t *b = g_test_mm_or_si128_data.b;
+    int32_t *expect = g_test_mm_or_si128_data.expect;
+    __m128i ma, mb;
+    ma.vect_s32 = vld1q_s32(a);
+    mb.vect_s32 = vld1q_s32(b);
+    __m128i res = _mm_or_si128(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm256_or_si256()
 {
     int32_t *a = g_test_mm256_or_si256_data.a;
@@ -3385,6 +3681,19 @@ int test_mm512_or_si512()
     __m512i res = _mm512_or_si512(ma, mb);
     return comp_return(expect, &res, sizeof(__m512i));
 }
+
+int test_mm_andnot_si128()
+{
+    int32_t *a = g_test_mm_andnot_si128_data.a;
+    int32_t *b = g_test_mm_andnot_si128_data.b;
+    int32_t *expect = g_test_mm_andnot_si128_data.expect;
+    __m128i ma, mb;
+    ma.vect_s32 = vld1q_s32(a);
+    mb.vect_s32 = vld1q_s32(b);
+    __m128i res = _mm_andnot_si128(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm256_andnot_si256()
 {
     int32_t *a = g_test_mm256_andnot_si256_data.a;
@@ -3413,6 +3722,19 @@ int test_mm512_andnot_si512()
     __m512i res = _mm512_andnot_si512(ma, mb);
     return comp_return(expect, &res, sizeof(__m512i));
 }
+
+int test_mm_xor_si128()
+{
+    int32_t *a = g_test_mm_xor_si128_data.a;
+    int32_t *b = g_test_mm_xor_si128_data.b;
+    int32_t *expect = g_test_mm_xor_si128_data.expect;
+    __m128i ma, mb;
+    ma.vect_s32 = vld1q_s32(a);
+    mb.vect_s32 = vld1q_s32(b);
+    __m128i res = _mm_xor_si128(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm256_xor_si256()
 {
     int32_t *a = g_test_mm256_xor_si256_data.a;
@@ -3602,6 +3924,45 @@ int test_mm256_cmpeq_epi32()
     return comp_return(expect, &res, sizeof(__m256i));
 }
 
+int test_mm256_cmpgt_epi32()
+{
+    int32_t *a = g_test_mm256_cmpgt_epi32_data.a;
+    int32_t *b = g_test_mm256_cmpgt_epi32_data.b;
+    uint32_t *expect = g_test_mm256_cmpgt_epi32_data.expect;
+    int iCount;
+    __m256i ma, mb;
+    for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+        mb.vect_s32[iCount] = vld1q_s32(b + iCount * 4);
+    }
+    __m256i res = _mm256_cmpgt_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m256i));
+}
+
+int test_mm_cmpeq_epi8()
+{
+    int8_t *a = g_test_mm_cmpeq_epi8_data.a;
+    int8_t *b = g_test_mm_cmpeq_epi8_data.b;
+    uint8_t *expect = g_test_mm_cmpeq_epi8_data.expect;
+    __m128i ma, mb;
+    ma.vect_s8 = vld1q_s8(a);
+    mb.vect_s8 = vld1q_s8(b);
+    __m128i res = _mm_cmpeq_epi8(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_cmpeq_epi32()
+{
+    int32_t *a = g_test_mm_cmpeq_epi32_data.a;
+    int32_t *b = g_test_mm_cmpeq_epi32_data.b;
+    uint32_t *expect = g_test_mm_cmpeq_epi32_data.expect;
+    __m128i ma, mb;
+    ma.vect_s32 = vld1q_s32(a);
+    mb.vect_s32 = vld1q_s32(b);
+    __m128i res = _mm_cmpeq_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
 int test_mm_cmpeq_epi64()
 {
     int64_t *a = g_test_mm_cmpeq_epi64_data.a;
@@ -3673,6 +4034,22 @@ int test_mm512_cmpeq_epi8_mask()
     }
     __mmask64 res;
     res = _mm512_cmpeq_epi8_mask(ma, mb);
+    return res == expect;
+}
+
+int test_mm512_cmpgt_epi32_mask()
+{
+    int32_t *a = g_test_mm512_cmpgt_epi32_mask_data.a;
+    int32_t *b = g_test_mm512_cmpgt_epi32_mask_data.b;
+    __mmask16 expect = g_test_mm512_cmpgt_epi32_mask_data.expect;
+    __m512i ma, mb;
+    int iCount;
+    for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+        mb.vect_s32[iCount] = vld1q_s32(b + iCount * 4);
+    }
+    __mmask16 res;
+    res = _mm512_cmpgt_epi32_mask(ma, mb);
     return res == expect;
 }
 
@@ -3803,6 +4180,27 @@ int test_mm_move_ss()
     return IsEqualFloat32x4(res, expect, DEFAULT_EPSILON_F32);
 }
 
+int test_mm_movemask_epi8()
+{
+    int8_t *a = g_test_mm_movemask_epi8_data.a;
+    int expect = g_test_mm_movemask_epi8_data.expect;
+    __m128i ma;
+    ma.vect_s8 = vld1q_s8(a);
+    int res = _mm_movemask_epi8(ma);
+
+    return res == expect;
+}
+int test_mm_movemask_ps()
+{
+    float32_t *a = g_test_mm_movemask_ps_data.a;
+    int expect = g_test_mm_movemask_ps_data.expect;
+    __m128 ma;
+    ma = vld1q_f32(a);
+    int res = _mm_movemask_ps(ma);
+
+    return res == expect;
+}
+
 int test_mm256_movemask_epi8()
 {
     int8_t *a = g_test_mm256_movemask_epi8_data.a;
@@ -3856,11 +4254,20 @@ int test_mm256_testz_si256()
     int res = _mm256_testz_si256(ma, mb);
     return res == expect;
 }
+
 int test_mm512_movm_epi8()
 {
     __mmask64 a = g_test_mm512_movm_epi8_data.a;
     int8_t *expect = g_test_mm512_movm_epi8_data.expect;
     __m512i res = _mm512_movm_epi8(a);
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
+int test_mm512_movm_epi32()
+{
+    __mmask16 a = g_test_mm512_movm_epi32_data.a;
+    int32_t *expect = g_test_mm512_movm_epi32_data.expect;
+    __m512i res = _mm512_movm_epi32(a);
     return comp_return(expect, &res, sizeof(__m512i));
 }
 
@@ -4032,6 +4439,18 @@ int test_mm_crc32_u64()
     unsigned __int64 expect = g_test_mm_crc32_u64_data.expect;
     unsigned __int64 res = _mm_crc32_u64(crc, v);
     return res == expect;
+}
+
+int test_mm_shuffle_epi8()
+{
+    int8_t *a = g_test_mm_shuffle_epi8_data.a;
+    int8_t *b = g_test_mm_shuffle_epi8_data.b;
+    int8_t *expect = g_test_mm_shuffle_epi8_data.expect;
+    __m128i ma, mb;
+    ma.vect_s8 = vld1q_s8(a);
+    mb.vect_s8 = vld1q_s8(b);
+    __m128i res = _mm_shuffle_epi8(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
 }
 
 int test_mm256_shuffle_epi8()
@@ -4220,11 +4639,25 @@ int test_mm256_set_pd()
     return comp_return(g_test_mm256_set_pd_data.expect, &dst, sizeof(dst));
 }
 
+int test_mm_setzero_si128()
+{
+    __m128i dst = _mm_setzero_si128();
+
+    return comp_return(g_test_mm_setzero_si128_data.expect, &dst, sizeof(dst));
+}
+
 int test_mm256_setzero_si256()
 {
     __m256i dst = _mm256_setzero_si256();
 
     return comp_return(g_test_mm256_setzero_si256_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm512_setzero_si512()
+{
+    __m512i dst = _mm512_setzero_si512();
+
+    return comp_return(g_test_mm512_setzero_si512_data.expect, &dst, sizeof(dst));
 }
 
 int test_mm256_setzero_ps()
@@ -4239,6 +4672,27 @@ int test_mm256_setzero_pd()
     __m256d dst = _mm256_setzero_pd();
 
     return comp_return(g_test_mm256_setzero_pd_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm_set1_epi8()
+{
+    __m128i dst = _mm_set1_epi8(g_test_mm_set1_epi8_data.a);
+
+    return comp_return(g_test_mm_set1_epi8_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm_set1_epi32()
+{
+    __m128i dst = _mm_set1_epi32(g_test_mm_set1_epi32_data.a);
+
+    return comp_return(g_test_mm_set1_epi32_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm_set1_ps()
+{
+    __m128 dst = _mm_set1_ps(g_test_mm_set1_ps_data.a);
+
+    return comp_return(g_test_mm_set1_ps_data.expect, &dst, sizeof(dst));
 }
 
 int test_mm_set1_epi64x()
@@ -4288,6 +4742,15 @@ int test_mm256_set1_ps()
     __m256 dst = _mm256_set1_ps(g_test_mm256_set1_ps_data.a);
 
     return comp_return(g_test_mm256_set1_ps_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm_loadu_si128()
+{
+    int32_t *src = g_test_mm_loadu_si128_data.a;
+    __m128i data = _mm_set_epi32(src[3], src[2], src[1], src[0]);
+    __m128i dst = _mm_loadu_si128(&data);
+
+    return comp_return(g_test_mm_loadu_si128_data.expect, &dst, sizeof(dst));
 }
 
 int test_mm256_load_si256()
@@ -4452,6 +4915,16 @@ int test_mm256_castps256_ps128()
     return comp_return(g_test_mm256_castps256_ps128_data.expect, &dst, sizeof(dst));
 }
 
+int test_mm_castsi128_ps()
+{
+    int32_t *src = g_test_mm_castsi128_ps_data.a;
+
+    __m128i a = _mm_set_epi32(src[3], src[2], src[1], src[0]);
+    __m128 dst = _mm_castsi128_ps(a);
+
+    return comp_return(g_test_mm_castsi128_ps_data.expect, &dst, sizeof(dst));
+}
+
 int test_mm256_castsi128_si256()
 {
     int32_t *src = g_test_mm256_castsi128_si256_data.a;
@@ -4480,6 +4953,23 @@ int test_mm256_castsi256_si128()
     return comp_return(g_test_mm256_castsi256_si128_data.expect, &dst, sizeof(dst));
 }
 
+int test_mm_cvtsi32_si128()
+{
+    int32_t a = g_test_mm_cvtsi32_si128_data.a;
+    __m128i dst = _mm_cvtsi32_si128(a);
+
+    return comp_return(g_test_mm_cvtsi32_si128_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm_cvtsi128_si32()
+{
+    int32_t *src = g_test_mm_cvtsi128_si32_data.a;
+    __m128i a = _mm_set_epi32(src[3], src[2], src[1], src[0]);
+    int dst = _mm_cvtsi128_si32(a);
+
+    return comp_return(&g_test_mm_cvtsi128_si32_data.expect, &dst, sizeof(dst));
+}
+
 int test_mm256_cvtepi32_pd()
 {
     int32_t *src = g_test_mm256_cvtepi32_pd_data.a;
@@ -4498,6 +4988,16 @@ int test_mm256_cvtepi32_ps()
     __m256 dst = _mm256_cvtepi32_ps(a);
 
     return comp_return(g_test_mm256_cvtepi32_ps_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm_storeu_si128()
+{
+    int32_t *a = g_test_mm_storeu_si128_data.a;
+    int32_t *expect = g_test_mm_storeu_si128_data.expect;
+    __m128i ma, res;
+    ma.vect_s32 = vld1q_s32(a);
+    _mm_storeu_si128(&res, ma);
+    return comp_return(expect, &res, sizeof(__m128i));
 }
 
 int test_mm256_store_si256()
@@ -4526,6 +5026,19 @@ int test_mm256_storeu_si256()
     return comp_return(expect, &res, sizeof(__m256i));
 }
 
+int test_mm256_stream_si256()
+{
+    int32_t *a = g_test_mm256_stream_si256_data.a;
+    int32_t *expect = g_test_mm256_stream_si256_data.expect;
+    int iCount;
+    __m256i ma, res;
+    for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+    }
+    _mm256_stream_si256(&res, ma);
+    return comp_return(expect, &res, sizeof(__m256i));
+}
+
 int test_mm512_store_si512()
 {
     int32_t *a = g_test_mm512_store_si512_data.a;
@@ -4536,6 +5049,32 @@ int test_mm512_store_si512()
         ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
     }
     _mm512_store_si512(&res, ma);
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
+int test_mm512_storeu_si512()
+{
+    int32_t *a = g_test_mm512_storeu_si512_data.a;
+    int32_t *expect = g_test_mm512_storeu_si512_data.expect;
+    int iCount;
+    __m512i ma, res;
+    for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+    }
+    _mm512_storeu_si512(&res, ma);
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
+int test_mm512_stream_si512()
+{
+    int32_t *a = g_test_mm512_stream_si512_data.a;
+    int32_t *expect = g_test_mm512_stream_si512_data.expect;
+    int iCount;
+    __m512i ma, res;
+    for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+    }
+    _mm512_stream_si512(&res, ma);
     return comp_return(expect, &res, sizeof(__m512i));
 }
 
@@ -4589,6 +5128,7 @@ int test_mm256_insertf128_ps()
 
     return IsEqualFloat32x8(res, expect, DEFAULT_EPSILON_F32);
 }
+
 int test_mm256_permute4x64_epi64()
 {
     int64_t *a = g_test_mm256_permute4x64_epi64_data.a;
@@ -4600,6 +5140,22 @@ int test_mm256_permute4x64_epi64()
         ma.vect_s64[iCount] = vld1q_s64(a + iCount * 2);
     }
     res = _mm256_permute4x64_epi64(ma, imm);
+    return comp_return(expect, &res, sizeof(__m256i));
+}
+
+int test_mm256_permute2f128_si256()
+{
+    int64_t *a = g_test_mm256_permute2f128_si256_data.a;
+    int64_t *b = g_test_mm256_permute2f128_si256_data.b;
+    int imm = g_test_mm256_permute2f128_si256_data.imm;
+    int64_t *expect = g_test_mm256_permute2f128_si256_data.expect;
+    int iCount;
+    __m256i ma, mb, res;
+    for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
+        ma.vect_s64[iCount] = vld1q_s64(a + iCount * 2);
+        mb.vect_s64[iCount] = vld1q_s64(b + iCount * 2);
+    }
+    res = _mm256_permute2f128_si256(ma, mb, imm);
     return comp_return(expect, &res, sizeof(__m256i));
 }
 
@@ -4925,6 +5481,7 @@ int test_mm512_cmp_ps_mask()
     }
     return TRUE;
 }
+
 int test_mm512_permutexvar_epi32()
 {
     __m512i idx;
@@ -5209,4 +5766,141 @@ int test_mm512_store_ps()
     }
     _mm512_store_ps(res, ma);
     return comp_return(expect, res, sizeof(__m512));
+}
+
+int test_mm512_permutex2var_epi32()
+{
+    __m512i idx;
+    __m512i a, b;
+    int32_t *expect = g_test_mm512_permutex2var_epi32_data.expect;
+
+    for (unsigned int i = 0; i < M512_M128_NUM; i++) {
+        idx.vect_s32[i] = vld1q_s32(g_test_mm512_permutex2var_epi32_data.idx + i * M128I_INT32_NUM);
+        a.vect_s32[i] = vld1q_s32(g_test_mm512_permutex2var_epi32_data.a + i * M128I_INT32_NUM);
+        b.vect_s32[i] = vld1q_s32(g_test_mm512_permutex2var_epi32_data.b + i * M128I_INT32_NUM);
+    }
+
+    __m512i res = _mm512_permutex2var_epi32(a, idx, b);
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
+int test_mm_max_epu8()
+{
+    uint8_t *a = g_test_mm_max_epu8_data.a;
+    uint8_t *b = g_test_mm_max_epu8_data.b;
+    uint8_t *expect = g_test_mm_max_epu8_data.expect;
+    __m128i ma, mb;
+    ma.vect_u8 = vld1q_u8(a);
+    mb.vect_u8 = vld1q_u8(b);
+    __m128i res = _mm_max_epu8(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_min_epu8()
+{
+    uint8_t *a = g_test_mm_min_epu8_data.a;
+    uint8_t *b = g_test_mm_min_epu8_data.b;
+    uint8_t *expect = g_test_mm_min_epu8_data.expect;
+    __m128i ma, mb;
+    ma.vect_u8 = vld1q_u8(a);
+    mb.vect_u8 = vld1q_u8(b);
+    __m128i res = _mm_min_epu8(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm256_max_epi32()
+{
+    int32_t *a = g_test_mm256_max_epi32_data.a;
+    int32_t *b = g_test_mm256_max_epi32_data.b;
+    int32_t *expect = g_test_mm256_max_epi32_data.expect;
+    int iCount;
+    __m256i ma, mb;
+    for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+        mb.vect_s32[iCount] = vld1q_s32(b + iCount * 4);
+    }
+    __m256i res = _mm256_max_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m256i));
+}
+
+int test_mm512_max_epi32()
+{
+    int32_t *a = g_test_mm512_max_epi32_data.a;
+    int32_t *b = g_test_mm512_max_epi32_data.b;
+    int32_t *expect = g_test_mm512_max_epi32_data.expect;
+    int iCount;
+    __m512i ma, mb;
+    for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+        mb.vect_s32[iCount] = vld1q_s32(b + iCount * 4);
+    }
+    __m512i res = _mm512_max_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
+int test_mm_packs_epi16()
+{
+    int16_t *a = g_test_mm_packs_epi16_data.a;
+    int16_t *b = g_test_mm_packs_epi16_data.b;
+    int16_t *expect = g_test_mm_packs_epi16_data.expect;
+    __m128i ma, mb;
+    ma.vect_s16 = vld1q_s16(a);
+    mb.vect_s16 = vld1q_s16(b);
+    __m128i res = _mm_packs_epi16(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm_packs_epi32()
+{
+    int32_t *a = g_test_mm_packs_epi32_data.a;
+    int32_t *b = g_test_mm_packs_epi32_data.b;
+    int32_t *expect = g_test_mm_packs_epi32_data.expect;
+    __m128i ma, mb;
+    ma.vect_s32 = vld1q_s32(a);
+    mb.vect_s32 = vld1q_s32(b);
+    __m128i res = _mm_packs_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m128i));
+}
+
+int test_mm256_packs_epi32()
+{
+    int32_t *a = g_test_mm256_packs_epi32_data.a;
+    int32_t *b = g_test_mm256_packs_epi32_data.b;
+    int32_t *expect = g_test_mm256_packs_epi32_data.expect;
+    int iCount;
+    __m256i ma, mb;
+    for (iCount = 0; iCount < g_256bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+        mb.vect_s32[iCount] = vld1q_s32(b + iCount * 4);
+    }
+    __m256i res = _mm256_packs_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m256i));
+}
+
+int test_mm512_packs_epi32()
+{
+    int32_t *a = g_test_mm512_packs_epi32_data.a;
+    int32_t *b = g_test_mm512_packs_epi32_data.b;
+    int32_t *expect = g_test_mm512_packs_epi32_data.expect;
+    int iCount;
+    __m512i ma, mb;
+    for (iCount = 0; iCount < g_512bit_divto_128bit; iCount++) {
+        ma.vect_s32[iCount] = vld1q_s32(a + iCount * 4);
+        mb.vect_s32[iCount] = vld1q_s32(b + iCount * 4);
+    }
+    __m512i res = _mm512_packs_epi32(ma, mb);
+    return comp_return(expect, &res, sizeof(__m512i));
+}
+
+int test_mm_malloc()
+{
+    size_t size = g_test_mm_malloc_data.size;
+    size_t align = g_test_mm_malloc_data.align;
+
+    void *p = _mm_malloc(size, align);
+    if (p == NULL)
+        return FALSE;
+    int res = (uintptr_t)p % align == 0 ? TRUE : FALSE;
+    _mm_free(p);
+    return res;
 }
