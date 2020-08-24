@@ -59,6 +59,8 @@ If you have questions or comments, we encourage you to create an issue on Github
 
  [kunpengcompute@huawei.com](mailto:kunpengcompute@huawei.com).
 
+## How to get code
+
 ## Copyright
 
 Copyright © 2020 Huawei Corporation. All rights reserved. 
