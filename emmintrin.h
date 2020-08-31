@@ -638,10 +638,10 @@ static int cal_res_word_equal_each(__m128i a, int la, __m128i b, int lb)
 static int aggregate_equal_ordered_8x16(int bound, int la, int lb, __m128i mtx[16])
 {
     int res = 0;
-    int j, k;
+    int i, j, k;
     int m1 = 0x10000 - (1 << la);
-    uint8x16_t vect_mask = vld1q_u8(g_mask_epi8);
-    uint8x16_t vect1 = vtstq_u8(vdupq_n_u8(m1), vect_mask);
+    uint8x8_t vect_mask = vld1_u8(g_mask_epi8);
+    uint8x16_t vect1 = vcombine_u8(vtst_u8(vdup_n_u8(m1), vect_mask), vtst_u8(vdup_n_u8(m1 >> 8), vect_mask));
     uint8x16_t vect_minusone = vdupq_n_u8(-1);
     uint8x16_t vect_zero = vdupq_n_u8(0);
     for (j = 0; j < lb; j++) {
@@ -650,16 +650,13 @@ static int aggregate_equal_ordered_8x16(int bound, int la, int lb, __m128i mtx[1
     for (j = lb; j < bound; j++) {
         mtx[j].vect_u8 = vbslq_u8(vect1, vect_minusone, vect_zero);
     }
-    uint8_t enable[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-    for (j = 0; j < bound; j++) {
+    unsigned char *ptr = (unsigned char*)mtx;
+    for (i = 0; i < bound; i++) {
         int val = 1;
-        uint8x16_t vect_en = vld1q_u8(enable);
-        for (k = j; k < bound && val == 1; k++) {
-            int t = vaddvq_u8(vandq_u8(mtx[j].vect_u8, vect_en));
-            val = (t == bound - j) ? 1 : 0;
+        for (j = 0, k = i; j < bound - i && k < bound; j++, k++) {
+            val &= ptr[k * bound + j];
         }
-        res = (val << j) + res;
-        enable[bound - 1 - j] = 0;
+        res = (val << i) + res;
     }
     return res;
 }
@@ -667,7 +664,7 @@ static int aggregate_equal_ordered_8x16(int bound, int la, int lb, __m128i mtx[1
 static int aggregate_equal_ordered_16x8(int bound, int la, int lb, __m128i mtx[16])
 {
     int res = 0;
-    int j, k;
+    int i, j, k;
     int m1 = 0x100 - (1 << la);
     uint16x8_t vect_mask = vld1q_u16(g_mask_epi16);
     uint16x8_t vect1 = vtstq_u16(vdupq_n_u16(m1), vect_mask);
@@ -679,16 +676,13 @@ static int aggregate_equal_ordered_16x8(int bound, int la, int lb, __m128i mtx[1
     for (j = lb; j < bound; j++) {
         mtx[j].vect_u16 = vbslq_u16(vect1, vect_minusone, vect_zero);
     }
-    uint16_t enable[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-    for (j = 0; j < bound; j++) {
+    unsigned short *ptr = (unsigned short*)mtx;
+    for (i = 0; i < bound; i++) {
         int val = 1;
-        uint16x8_t vect_en = vld1q_u16(enable);
-        for (k = j; k < bound && val == 1; k++) {
-            int t = vaddvq_u16(vandq_u16(mtx[j].vect_u16, vect_en));
-            val = (t == bound - j) ? 1 : 0;
+        for (j = 0, k = i; j < bound - i && k < bound; j++, k++) {
+            val &= ptr[k * bound + j];
         }
-        res = (val << j) + res;
-        enable[bound - 1 - j] = 0;
+        res = (val << i) + res;
     }
     return res;
 }
