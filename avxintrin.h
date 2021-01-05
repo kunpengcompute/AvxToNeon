@@ -82,6 +82,27 @@ typedef struct {
 #define _CMP_GT_OQ 0x1e
 #define _CMP_TRUE_US 0x1f
 
+FORCE_INLINE __m256i _mm256_setzero_si256(void)
+{
+    __m256i ret;
+    ret.vect_s32[0] = ret.vect_s32[1] = vdupq_n_s32(0);
+    return ret;
+}
+
+FORCE_INLINE __m256 _mm256_setzero_ps(void)
+{
+    __m256 ret;
+    ret.vect_f32[0] = ret.vect_f32[1] = vdupq_n_f32(0.0f);
+    return ret;
+}
+
+FORCE_INLINE __m256d _mm256_setzero_pd(void)
+{
+    __m256d ret;
+    ret.vect_f64[0] = ret.vect_f64[1] = vdupq_n_f64(0.0);
+    return ret;
+}
+
 FORCE_INLINE void _mm256_convert_to_int32(int32_t* ptr_a, __m256i a)
 {
     ptr_a[0] = vgetq_lane_s32(a.vect_s32[0], 0);
@@ -140,7 +161,7 @@ FORCE_INLINE __m256i _mm256_div_epi16(__m256i a, __m256i b)
 
 FORCE_INLINE __m256i _mm256_div_epi32(__m256i a, __m256i b)
 {
-    __m256i res;
+    __m256i res = _mm256_setzero_si256();
     int32_t ptr_a[8], ptr_b[8], ptr_r[8];
     _mm256_convert_to_int32(ptr_a, a);
     _mm256_convert_to_int32(ptr_b, b);
@@ -165,7 +186,7 @@ FORCE_INLINE __m256i _mm256_div_epi32(__m256i a, __m256i b)
 
 FORCE_INLINE __m256i _mm256_div_epi64(__m256i a, __m256i b)
 {
-    __m256i res;
+    __m256i res = _mm256_setzero_si256();
     int64_t ptr_a[4], ptr_b[4], ptr_r[4];
     _mm256_convert_to_int64(ptr_a, a);
     _mm256_convert_to_int64(ptr_b, b);
@@ -197,7 +218,7 @@ FORCE_INLINE __m256i _mm256_div_epu16(__m256i a, __m256i b)
 
 FORCE_INLINE __m256i _mm256_div_epu32(__m256i a, __m256i b)
 {
-    __m256i res;
+    __m256i res = _mm256_setzero_si256();
     uint32_t ptr_a[8], ptr_b[8], ptr_r[8];
     _mm256_convert_to_uint32(ptr_a, a);
     _mm256_convert_to_uint32(ptr_b, b);
@@ -222,7 +243,7 @@ FORCE_INLINE __m256i _mm256_div_epu32(__m256i a, __m256i b)
 
 FORCE_INLINE __m256i _mm256_div_epu64(__m256i a, __m256i b)
 {
-    __m256i res;
+    __m256i res = _mm256_setzero_si256();
     uint64_t ptr_a[4], ptr_b[4], ptr_r[4];
     _mm256_convert_to_uint64(ptr_a, a);
     _mm256_convert_to_uint64(ptr_b, b);
@@ -335,7 +356,7 @@ FORCE_INLINE __m256d _mm256_add_pd(__m256d a, __m256d b)
 
 FORCE_INLINE __m256 _mm256_addsub_ps (__m256 a, __m256 b)
 {
-    __m256 c;
+    __m256 c = _mm256_setzero_ps();
     __asm__ __volatile__ (
         "fsub %2.4s, %0.4s, %4.4s        \n\t"
         "fsub %3.4s, %1.4s, %5.4s        \n\t"
@@ -352,7 +373,7 @@ FORCE_INLINE __m256 _mm256_addsub_ps (__m256 a, __m256 b)
 }
 FORCE_INLINE __m256d _mm256_addsub_pd (__m256d a, __m256d b)
 {
-    __m256d c;
+    __m256d c = _mm256_setzero_ps();
     __asm__ __volatile__ (
         "fsub %2.2d, %0.2d, %4.2d        \n\t"
         "fsub %3.2d, %1.2d, %5.2d        \n\t"
@@ -592,7 +613,7 @@ FORCE_INLINE __m256i _mm256_mullo_epi32(__m256i a, __m256i b)
 
 FORCE_INLINE __m256i _mm256_mullo_epi64(__m256i a, __m256i b)
 {
-    __m256i res;
+    __m256i res = _mm256_setzero_si256();
     int64_t ptr_a[4], ptr_b[4], ptr_r[4];
     _mm256_convert_to_int64(ptr_a, a);
     _mm256_convert_to_int64(ptr_b, b);
@@ -877,7 +898,7 @@ FORCE_INLINE __m128d _mm256_extractf128_pd (__m256d a, const int imm8)
 
 FORCE_INLINE __m256i _mm256_permute4x64_epi64(__m256i a, const int imm8)
 {
-    __m256i res;
+    __m256i res = _mm256_setzero_si256();
     int64_t ptr_a[4];
     vst1q_s64(ptr_a, a.vect_s64[0]);
     vst1q_s64(ptr_a + 2, a.vect_s64[1]);
@@ -954,27 +975,6 @@ FORCE_INLINE __m256d _mm256_set_pd(double e3, double e2, double e1, double e0)
     SET64x2(res_m256d.vect_f64[0], e0, e1);
     SET64x2(res_m256d.vect_f64[1], e2, e3);
     return res_m256d;
-}
-
-FORCE_INLINE __m256i _mm256_setzero_si256(void)
-{
-    __m256i ret;
-    ret.vect_s32[0] = ret.vect_s32[1] = vdupq_n_s32(0);
-    return ret;
-}
-
-FORCE_INLINE __m256 _mm256_setzero_ps(void)
-{
-    __m256 ret;
-    ret.vect_f32[0] = ret.vect_f32[1] = vdupq_n_f32(0.0f);
-    return ret;
-}
-
-FORCE_INLINE __m256d _mm256_setzero_pd(void)
-{
-    __m256d ret;
-    ret.vect_f64[0] = ret.vect_f64[1] = vdupq_n_f64(0.0);
-    return ret;
 }
 
 FORCE_INLINE __m256i _mm256_set1_epi8(int8_t a)
