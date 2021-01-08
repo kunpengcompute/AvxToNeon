@@ -373,7 +373,7 @@ FORCE_INLINE __m256 _mm256_addsub_ps (__m256 a, __m256 b)
 }
 FORCE_INLINE __m256d _mm256_addsub_pd (__m256d a, __m256d b)
 {
-    __m256d c = _mm256_setzero_ps();
+    __m256d c = _mm256_setzero_pd();
     __asm__ __volatile__ (
         "fsub %2.2d, %0.2d, %4.2d        \n\t"
         "fsub %3.2d, %1.2d, %5.2d        \n\t"
