@@ -59,7 +59,7 @@ If you have questions or comments, we encourage you to create an issue on Github
 
  [kunpengcompute@huawei.com](mailto:kunpengcompute@huawei.com).
 
-## How to Get Code
+## Obtaining Code
 
 If you wish to get source code of functions listed in supportedlist.md, you can send an email to [kunpengcompute@huawei.com](mailto:kunpengcompute@huawei.com).
 
