@@ -896,6 +896,13 @@ FORCE_INLINE __m128i _mm_set1_epi8(char w)
     return res;
 }
 
+FORCE_INLINE __m128i _mm_set1_epi16(short a)
+{
+    __m128i res;
+    res.vect_s16 = vdupq_n_s16(a);
+    return res;
+}
+
 FORCE_INLINE __m128i _mm_set1_epi32(int _i)
 {
     __m128i res;
@@ -999,6 +1006,13 @@ FORCE_INLINE __m128i _mm_adds_epu8(__m128i a, __m128i b)
     return res;
 }
 
+FORCE_INLINE __m128i _mm_adds_epi16(__m128i a, __m128i b)
+{
+    __m128i res;
+    res.vect_s16 = vqaddq_s16(a.vect_s16, b.vect_s16);
+    return res;
+}
+
 FORCE_INLINE __m128i _mm_setzero_si128()
 {
     __m128i res;
@@ -1006,18 +1020,22 @@ FORCE_INLINE __m128i _mm_setzero_si128()
     return res;
 }
 
-FORCE_INLINE __m128i _mm_slli_si128 (__m128i a, int imm8)
+FORCE_INLINE __m128i _mm_slli_si128(__m128i a, const int imm8)
 {
-    assert(imm8 >=0 && imm8 < 256);
-    __m128i res;
-    if (likely(imm8 > 0 && imm8 <= 15)) {
-        res.vect_s8 = vextq_s8(vdupq_n_s8(0), a.vect_s8, 16 - (imm8));
-    } else if (imm8 == 0) {
-        res = a;
-    } else {
-        res.vect_s8 = vdupq_n_s8(0);
-    }
-    return res;
+	__m128i res;
+	if (imm8 > 0 && imm8 <= 15) {
+		int8x16_t zero = vdupq_n_s8(0);
+		__asm__ __volatile__ (
+			"ext %0.16b, %1.16b, %2.16b, #%3"
+			: "=w"(res.vect_s8)
+			: "w"(zero), "w"(a.vect_s8), "i"(16 - imm8)
+			: /*No clobbers */);
+	} else if (imm8 == 0) {
+		res = a;
+	} else {
+		res.vect_s8 = vdupq_n_s8(0);
+	}
+	return res;
 }
 
 FORCE_INLINE __m128i _mm_srli_si128 (__m128i a, int imm8)
@@ -1143,4 +1161,37 @@ FORCE_INLINE void* _mm_malloc (size_t size, size_t align)
 FORCE_INLINE void _mm_free (void * mem_addr)
 {
     free(mem_addr);
+}
+
+FORCE_INLINE __m128i _mm_subs_epu8(__m128i a, __m128i b)
+{
+	__m128i res;
+	res.vect_u8 = vqsubq_u8(a.vect_u8, b.vect_u8);
+	return res;
+}
+
+FORCE_INLINE __m128i _mm_subs_epu16(__m128i a, __m128i b)
+{
+	__m128i res;
+	res.vect_u16 = vqsubq_u16(a.vect_u16, b.vect_u16);
+	return res;
+}
+
+FORCE_INLINE int _mm_extract_epi16(__m128i a, const int imm8)
+{
+	return a.vect_s16[imm8 & 0x7] & 0xffff;
+}
+
+FORCE_INLINE __m128i _mm_max_epi16(__m128i a, __m128i b)
+{
+	__m128i dst;
+	dst.vect_s16 = vmaxq_s16(a.vect_s16, b.vect_s16);
+	return dst;
+}
+
+FORCE_INLINE __m128i _mm_cmpgt_epi16(__m128i a, __m128i b)
+{
+	__m128i dst;
+	dst.vect_u16 = vcgtq_s16(a.vect_s16, b.vect_s16);
+	return dst;
 }
