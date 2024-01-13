@@ -1037,6 +1037,10 @@ const char *RunTest(InstructionTest test, int *flag)
             ret = "MM256_SET1_EPI8";
             *flag = test_mm256_set1_epi8();
             break;
+        case UT_MM256_SET1_EPI16:
+            ret = "MM256_SET1_EPI16";
+            *flag = test_mm256_set1_epi16();
+            break;
         case UT_MM256_SET1_EPI32:
             ret = "MM256_SET1_EPI32";
             *flag = test_mm256_set1_epi32();
@@ -4714,6 +4718,13 @@ int test_mm256_set1_epi8()
     __m256i dst = _mm256_set1_epi8(g_test_mm256_set1_epi8_data.a);
 
     return comp_return(g_test_mm256_set1_epi8_data.expect, &dst, sizeof(dst));
+}
+
+int test_mm256_set1_epi16()
+{
+    __m256i dst = _mm256_set1_epi16(g_test_mm256_set1_epi16_data.a);
+
+    return comp_return(g_test_mm256_set1_epi16_data.expect, &dst, sizeof(dst));
 }
 
 int test_mm256_set1_epi32()

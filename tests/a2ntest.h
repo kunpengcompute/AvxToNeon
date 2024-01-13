@@ -197,6 +197,7 @@ typedef enum {
     UT_MM256_SET_M128I,
     UT_MM256_SET1_EPI64X,
     UT_MM256_SET1_EPI8,
+    UT_MM256_SET1_EPI16,
     UT_MM_SETZERO_SI128,
     UT_MM256_SETZERO_SI256,
     UT_MM512_SETZERO_SI512,
@@ -596,6 +597,7 @@ int test_mm_set1_ps(void);
 int test_mm_set1_epi64x(void);
 int test_mm_set1_pd(void);
 int test_mm256_set1_epi8(void);
+int test_mm256_set1_epi16(void);
 int test_mm256_set1_epi32(void);
 int test_mm256_set1_epi64x(void);
 int test_mm256_set1_pd(void);
