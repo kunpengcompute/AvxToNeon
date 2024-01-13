@@ -984,6 +984,13 @@ FORCE_INLINE __m256i _mm256_set1_epi8(int8_t a)
     return ret;
 }
 
+FORCE_INLINE __m256i _mm256_set1_epi16(int16_t a)
+{
+    __m256i ret;
+    ret.vect_s16[0] = ret.vect_s16[1] = vdupq_n_s16(a);
+    return ret;
+}
+
 FORCE_INLINE __m256i _mm256_set1_epi32(int32_t a)
 {
     __m256i ret;

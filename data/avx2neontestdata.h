@@ -2673,6 +2673,15 @@ static test_mm256_set1_epi8_data_model g_test_mm256_set1_epi8_data = {
 };
 
 typedef struct {
+    int16_t a;
+    int16_t expect[16];
+} test_mm256_set1_epi16_data_model;
+static test_mm256_set1_epi16_data_model g_test_mm256_set1_epi16_data = {
+    2019,
+    {2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019},
+};
+
+typedef struct {
     int32_t a;
     int32_t expect[8];
 } test_mm256_set1_epi32_data_model;
